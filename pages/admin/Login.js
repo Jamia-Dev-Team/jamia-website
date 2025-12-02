@@ -32,13 +32,13 @@ export default function Login() {
         }
       );
       if (res.ok) {
-        // Redirect to the admin dashboard or another page
+        // Redirect to the admin dashboard or another page //
         cookies.set("admin", "true");
         window.location.href = "/admin/dashboard";
         setVerifying(false);
-        // redirect('/admin/dashboard')
+        // redirect('/admin/dashboard') //
       } else {
-        // Handle login error, e.g., show an error message
+        // Handle login error, e.g., show an error message //
         setVerifying(false);
         setWrong(true);
       }
