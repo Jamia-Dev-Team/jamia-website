@@ -12,6 +12,7 @@ export default function Login() {
   const login = async () => {
     setVerifying(true);
     console.log(data);
+    console.log('url',`${process.env.NEXT_PUBLIC_PORT}/api/auth/login`);
 
     try {
       const res = await fetch(

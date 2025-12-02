@@ -22,7 +22,7 @@ export default function AdminNav() {
       <div className="  w-11/12 m-auto grid lg:grid-cols-3 xl:grid-cols-2 justify-between ">
         <div className="flex col-span-2 xl:col-span-1   justify-between">
           <div className="w-14 rounded">
-            <Image
+            <Image width={100} height={100}
               src={'/images/LOGO-1.png'}
               alt="Best online madrasa Malayalam, Dubai madrasa, Noorify madrasa"
               className="rounded"
