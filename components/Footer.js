@@ -6,7 +6,6 @@ import {
   FaEnvelope,
   FaClock,
   FaFacebook,
-  FaTwitter,
   FaInstagram,
   FaYoutube,
   FaLinkedin,
@@ -57,34 +56,38 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-white pt-12 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+    <footer className="bg-primary text-white pt-12 pb-8  items-center ">
+      <div className="container mx-auto px-4  ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8  ">
           {/* University Info */}
           <div>
-            <div className="flex-col items-center mb-4">
-              <div className="bg-white p-2 w-fit ml-8 rounded">
-                <div className="relative h-12 w-12  ">
-                  <Image
-                    src="/images/LOGO-3.png"
-                    alt="Jamia Madeenathunnoor Logo"
-                    layout="fill"
-                    className="object-contain"
-                  />
-                </div>
-              </div>
-              {/* <h3 className="text-xl pl-8 pt-5  font-bold">JAMIA MADEENATHUNNOOR</h3> */}
-            </div>
-            <p className="text-justify pl-8">
-Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting traditional Islamic learning with diverse modern disciplines. Its multicultural atmosphere encourages rich dialogue, while the serene campus supports holistic growth. With strong moral values and dedicated faculty, the Jamia nurtures compassionate, capable leaders ready to serve society.
+  <div className="flex flex-col m-0 p-0 ">
+  <div className="rounded">
+<div className="ml-5 rounded">
+  <Image
+    src="/images/logo-whiteAsset-2.png"   
+    alt="Jamia Madeenathunnoor Logo"
+    width={300}   
+    height={100}
+    className="object-contain "
+    priority={true}
+  />
+</div>
+  </div>
+</div>
+      <p className=" pl-8">
+              Jamia Madeenathunnoor exemplifies academic and spiritual
+              excellence, uniting traditional Islamic learning with diverse
+              modern disciplines. Its multicultural atmosphere encourages rich
+              dialogue, while the serene campus supports holistic growth. With
+              strong moral values and dedicated faculty, the Jamia nurtures
+              compassionate, capable leaders ready to serve society.
             </p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-bold mb-4  pb-2">
-              Quick Links
-            </h3>
+            <h3 className="text-lg font-bold mb-4  pb-2">Quick Links  <span className="ml-36"> Links</span>   </h3>
             <div className="grid grid-cols-2 gap-2">
               {quickLinks.map((link, index) =>
                 link.name !== "Staff Panel" ? (
@@ -109,8 +112,8 @@ Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting tra
               )}
             </div>
           </div>
-<div>
-  <h1 className="font-bold mb-4 pb-2 text-lg">Get In Touch</h1>
+          <div>
+            <h1 className="font-bold mb-4 pb-2 text-lg">Get In Touch</h1>
             <address className="not-italic space-y-3">
               <p className="flex items-start">
                 <FaMapMarkerAlt className="mt-1 mr-3 flex-shrink-0" />
@@ -138,28 +141,27 @@ Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting tra
                 Mon-Sat: 9:00 AM - 5:00 PM
               </p>
             </address>
-</div>
 
-          {/* Social Media */}
-          <div>
-            <h3 className="text-lg font-bold mb-4  pb-2">
-              Connect With Us
-            </h3>
-            <div className="flex space-x-3 mb-6">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-gray-800 hover:bg-blue-600 text-white p-3 rounded-full transition-colors"
-                  aria-label={social.name}
-                >
-                  {social.icon}
-                </a>
-              ))}
+            <div>
+              <h3 className="text-lg font-bold mt-4  pb-2">Connect With Us</h3>
+              <div className="flex space-x-3 mb-6">
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-800 hover:bg-blue-600 text-white p-3 rounded-full transition-colors"
+                    aria-label={social.name}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* Social Media */}
         </div>
 
         {/* Bottom Footer */}
@@ -169,9 +171,7 @@ Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting tra
               <p className="text-gray-400 text-center">
                 © 2025 Jamia Madeenathunnoor. All Rights Reserved.
               </p>
-         
             </div>
-  
           </div>
         </div>
       </div>

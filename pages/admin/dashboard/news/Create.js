@@ -1,25 +1,22 @@
 import React, { useEffect, useState } from "react";
-
 import { useRouter } from "next/router";
 import cookies from "js-cookie";
 import shortid from "shortid";
-
 import dynamic from "next/dynamic";
+import { HiOutlinePhotograph, HiOutlineDocumentText } from "react-icons/hi";
+import { BiImageAdd } from "react-icons/bi";
 
 const Quill = dynamic(() => import("react-quill"), { ssr: false });
-
 import "react-quill/dist/quill.snow.css";
+import AdminNav from "../../../../components/AdminNav";
 
-export default function Component() {
+export default function CreateNews() {
   const [description, setDescription] = useState("");
-  const handleDescriptionChange = (value) => {
-    setDescription(value);
-  };
-  const [title, setTitle] = useState("  ");
+  const [title, setTitle] = useState("");
   const [img, setImg] = useState("");
   const [uploading, setUploading] = useState(false);
-
   const [file, setFile] = useState(null);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const router = useRouter();
 
@@ -29,23 +26,36 @@ export default function Component() {
       if (adminUser === "false") {
         router.push("/admin/Login");
       }
-      getAdmin();
     };
-  });
+    getAdmin();
+  }, [router]);
+
+  // Listen for sidebar toggle events
+  useEffect(() => {
+    const handleSidebarToggle = (event) => {
+      setSidebarCollapsed(event.detail.collapsed);
+    };
+
+    window.addEventListener('sidebarToggle', handleSidebarToggle);
+    return () => window.removeEventListener('sidebarToggle', handleSidebarToggle);
+  }, []);
+
+  const handleDescriptionChange = (value) => {
+    setDescription(value);
+  };
 
   const handleTitle = (e) => {
     setTitle(e.target.value);
-    const value = e.target.value;
   };
 
   const handleImg = (e) => {
     const file = e.target.files[0];
+    if (!file) return;
+
     const fileSizeInKB = file.size / 1024;
-    console.log(fileSizeInKB);
     if (fileSizeInKB > 500) {
       alert("File size exceeds 500KB. Please upload a smaller file.");
-      setImg(null);
-      setFile(null);
+      e.target.value = null;
       return;
     }
 
@@ -58,10 +68,30 @@ export default function Component() {
     };
   };
 
+  const handleRemoveImage = () => {
+    setImg("");
+    setFile(null);
+    const fileInput = document.querySelector('input[type="file"]');
+    if (fileInput) fileInput.value = null;
+  };
+
   const handleUpload = async (e) => {
     e.preventDefault();
 
-    if (!file) return;
+    if (!title.trim()) {
+      alert("Please enter a title");
+      return;
+    }
+
+    if (!description.trim()) {
+      alert("Please enter a description");
+      return;
+    }
+
+    if (!file) {
+      alert("Please select an image");
+      return;
+    }
 
     setUploading(true);
     const formData = new FormData();
@@ -75,16 +105,16 @@ export default function Component() {
 
       const data = await response.json();
       if (response.ok) {
-        console.log(data.imageUrl);
-        addBlog(data);
+        await addBlog(data);
       } else {
         throw new Error(data.error || "Upload failed");
       }
     } catch (error) {
       alert(error.message);
-    } finally {
+      setUploading(false);
     }
   };
+
   const addBlog = async (imgData) => {
     const slug = shortid.generate();
     try {
@@ -103,98 +133,228 @@ export default function Component() {
           createdAt: new Date(),
         }),
       });
-      router.push("/admin/dashboard/news");
-      setUploading(false);
+
+      if (res.ok) {
+        router.push("/admin/dashboard/news");
+      } else {
+        throw new Error("Failed to create blog post");
+      }
     } catch (error) {
+      alert(error.message);
       setUploading(false);
-      alert(error);
     }
   };
 
   return (
-    <div>
-      <div className="px-5 lg:px-0 lg:w-10/12 m-auto mt-12 pb-24">
-        <h4 className="text-2xl font-bold">Create Blog</h4>
+    <div className="min-h-screen bg-gray-50">
+      <AdminNav />
+      
+      <div 
+        className={`transition-all duration-300 ${
+          sidebarCollapsed ? 'md:ml-0' : 'md:ml-[280px]'
+        }`}
+      >
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Header */}
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
+              <HiOutlineDocumentText className="text-blue-600" />
+              Create News
+            </h1>
+            <p className="text-gray-600 mt-2">
+              Fill in the details below to create a new news post
+            </p>
+          </div>
 
-        <form onSubmit={handleUpload}>
-          <div className="mt-16">
-            <div>
-              <input
-                className="mt-6 border placeholder:text-red-700"
-                placeholder="Title"
-                value={title}
-                onChange={handleTitle}
-              />
+          {/* Form Card */}
+          <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <form onSubmit={handleUpload}>
+              {/* Image Upload Section */}
+              <div className="p-6 border-b border-gray-200">
+                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                  <HiOutlinePhotograph className="text-lg" />
+                  Featured Image * (Max 500KB)
+                </label>
+                
+                <div className="grid md:grid-cols-2 gap-6 mt-4">
+                  {/* Upload Area */}
+                  <div>
+                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+                      <BiImageAdd className="text-5xl text-gray-400 mx-auto mb-3" />
+                      <label className="cursor-pointer">
+                        <span className="text-blue-600 hover:text-blue-700 font-medium">
+                          Click to upload
+                        </span>
+                        <span className="text-gray-500"> or drag and drop</span>
+                        <input
+                          onChange={handleImg}
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          required
+                        />
+                      </label>
+                      <p className="text-xs text-gray-500 mt-2">
+                        PNG, JPG, GIF up to 500KB
+                      </p>
+                    </div>
+                  </div>
 
-              <div className="mt-12">
-                <Quill
-                  className="bg-white  mt-1 "
-                  value={description}
-                  onChange={handleDescriptionChange}
-                  modules={{
-                    toolbar: [
-                      [{ header: "1" }, { header: "2" }, { font: [] }],
-                      [{ list: "ordered" }, { list: "bullet" }],
-                      ["bold", "italic", "underline", "strike"],
-                      [{ align: [] }],
-                      ["link", "image", "video"],
-                      ["clean"],
-                    ],
-                  }}
-                  formats={[
-                    "header",
-                    "font",
-                    "list",
-                    "bold",
-                    "italic",
-                    "underline",
-                    "strike",
-                    "align",
-                    "link",
-                    "image",
-                    "video",
-                  ]}
-                  placeholder="Add a Description"
-                />
-                <div className="mt-10 ">
-                  <p className="text-lg font-bold">Image</p>
-                  <div className="grid grid-cols-2 border p-5 mt-6">
-                    <input
-                      onChange={handleImg}
-                      type="file"
-                      className="mt-4 m-auto"
-                    />
-
-                    <div className="border w-fit">
-                      <img style={{ maxWidth: "200px" }} src={img} />
-                      {img ? (
+                  {/* Preview Area */}
+                  <div>
+                    {img ? (
+                      <div className="relative border border-gray-300 rounded-lg overflow-hidden bg-gray-50">
+                        <img
+                          src={img}
+                          alt="Preview"
+                          className="w-full h-48 object-cover"
+                        />
                         <button
-                          className="p-1 bg-red-500 text-white m-auto w-full mt-2"
-                          onClick={() => setImg(null)}
+                          type="button"
+                          onClick={handleRemoveImage}
+                          className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors shadow-lg"
                         >
                           Remove
                         </button>
-                      ) : (
-                        ""
-                      )}
-                    </div>
+                        <div className="p-3 bg-white border-t border-gray-200">
+                          <p className="text-xs text-gray-600 text-center">
+                            Image Preview
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="border border-gray-200 rounded-lg p-6 bg-gray-50 h-full flex items-center justify-center">
+                        <p className="text-gray-400 text-center">
+                          No image selected
+                          <br />
+                          <span className="text-xs">
+                            Preview will appear here
+                          </span>
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
+              </div>
 
-                <div className="flex w-full mt-24">
-                  <button
-                    type="submit"
-                    disabled={uploading}
-                    className="m-auto bg-green-500 p-2 w-4/12 text-white rounded"
-                  >
-                    {uploading ? "UPLOADING..." : "UPLOAD"}
-                  </button>
+              {/* Title Section */}
+              <div className="p-6 border-b border-gray-200">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  News Title *
+                </label>
+                <input
+                  type="text"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  placeholder="Enter news title..."
+                  value={title}
+                  onChange={handleTitle}
+                  required
+                />
+              </div>
+
+              {/* Content Section */}
+              <div className="p-6 border-b border-gray-200">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  News Content *
+                </label>
+                <div className="bg-white rounded-lg overflow-hidden border border-gray-300">
+                  <Quill
+                    className="create-news-editor"
+                    value={description}
+                    onChange={handleDescriptionChange}
+                    modules={{
+                      toolbar: [
+                        [{ header: [1, 2, 3, false] }],
+                        ["bold", "italic", "underline", "strike"],
+                        [{ list: "ordered" }, { list: "bullet" }],
+                        [{ align: [] }],
+                        ["link", "image"],
+                        ["clean"],
+                      ],
+                    }}
+                    formats={[
+                      "header",
+                      "bold",
+                      "italic",
+                      "underline",
+                      "strike",
+                      "list",
+                      "bullet",
+                      "align",
+                      "link",
+                      "image",
+                    ]}
+                    placeholder="Write your news content here..."
+                  />
                 </div>
               </div>
-            </div>
+
+              {/* Action Buttons */}
+              <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 flex gap-4 justify-end">
+                <button
+                  type="button"
+                  onClick={() => router.push("/admin/dashboard/news")}
+                  className="px-6 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-100 transition-colors"
+                  disabled={uploading}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={uploading}
+                  className="px-8 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {uploading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      Publishing...
+                    </>
+                  ) : (
+                    "Publish News"
+                  )}
+                </button>
+              </div>
+            </form>
           </div>
-        </form>
+        </div>
       </div>
+
+      {/* Custom Styles for Quill Editor */}
+      <style >{`
+        .create-news-editor .ql-container {
+          min-height: 300px;
+          font-size: 16px;
+        }
+        
+        .create-news-editor .ql-editor {
+          min-height: 300px;
+        }
+
+        .create-news-editor .ql-toolbar {
+          background-color: #f9fafb;
+          border-bottom: 1px solid #e5e7eb;
+        }
+
+        .create-news-editor .ql-editor.ql-blank::before {
+          color: #9ca3af;
+          font-style: normal;
+        }
+      `}</style>
     </div>
   );
 }

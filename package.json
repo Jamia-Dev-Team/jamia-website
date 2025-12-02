@@ -20,6 +20,7 @@
     "core-js": "^3.41.0",
     "formidable": "^3.5.2",
     "js-cookie": "^3.0.1",
+    "lucide-react": "^0.555.0",
     "moment": "^2.29.1",
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.2",
