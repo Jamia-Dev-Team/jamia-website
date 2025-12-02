@@ -12,14 +12,15 @@ const AboutSection = () => {
       <div className="container mx-auto px-4">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="w-full lg:w-1/2">
-            <div className="relative aspect-video lg:aspect-square rounded-xl overflow-hidden shadow-lg">
-              <Image
-                src={"/photos/16.jpg"}
-                alt="Our University Campus"
-                layout="fill"
-                className="object-cover"
-              />
-            </div>
+    <div className="relative h-64 md:h-80 lg:h-96 rounded-xl overflow-hidden shadow-lg">
+  <Image
+    src="/photos/16.jpg"
+    alt="Our University Campus"
+    layout="fill"
+    className="object-cover"
+  />
+</div>
+
           </div>
 
           {/* Content Section */}
