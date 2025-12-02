@@ -46,7 +46,7 @@ const BSProgrammePage = () => {
         <div className="absolute inset-0 flex items-center justify-center text-center px-4">
           <div>
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
-              BS Programmes
+              GRADUATE SCHOOL
             </h1>
             <p className="text-xl text-white">
               Integrated Bachelor&apos;s Degrees with Islamic Studies
@@ -59,7 +59,7 @@ const BSProgrammePage = () => {
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-bold text-primary mb-6">
-            BS PROGRAMMES
+            GRADUATE SCHOOL 
           </h2>
           <div className="prose prose-lg text-gray-600 mb-12">
             <p>
@@ -266,11 +266,11 @@ const BSProgrammePage = () => {
           </div>
 
           {/* CTA */}
-          <div className="text-center mt-16">
+          {/* <div className="text-center mt-16">
             <button className="bg-primary hover:bg-primary/70 text-white px-8 py-3 rounded-lg font-medium inline-flex items-center mr-4">
               Apply Now <FaArrowRight className="ml-2" />
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
       <Footer />

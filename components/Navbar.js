@@ -254,7 +254,7 @@ export default function Navbar() {
                             <li className=" px-4 block whitespace-no-wrap text-sm ">
                               <p className="whitespace-nowrap">
                                 {" "}
-                                HS PROGRAMMES
+                                JUNIOR SCHOOL
                               </p>
                             </li>
                           </div>
@@ -271,7 +271,7 @@ export default function Navbar() {
                             <li className=" px-4 block whitespace-no-wrap text-sm ">
                               <p className="whitespace-nowrap">
                                 {" "}
-                                HSS PROGRAMMES
+                               SENIOR SCHOOL
                               </p>
                             </li>
                           </div>
@@ -281,6 +281,40 @@ export default function Navbar() {
                             style={{ minWidth: "150px" }}
                             className={
                               router.pathname == "/Programmes/Bs"
+                                ? "bg-primary py-2 "
+                                : "bg-navbg hover:bg-primary py-2"
+                            }
+                          >
+                            <li className=" px-4 block whitespace-no-wrap text-sm ">
+                              <p className="whitespace-nowrap">
+                                {" "}
+                                GRADUATE SCHOOL
+                              </p>
+                            </li>
+                          </div>
+                        </Link>
+                         <Link passHref href="/Programmes/finishing">
+                          <div
+                            style={{ minWidth: "150px" }}
+                            className={
+                              router.pathname == "/Programmes/finishing"
+                                ? "bg-primary py-2"
+                                : "bg-navbg hover:bg-primary py-2"
+                            }
+                          >
+                            <li className=" px-4 block whitespace-no-wrap text-sm ">
+                              <p className="whitespace-nowrap">
+                                {" "}
+                                FINISHING SCHOOL
+                              </p>
+                            </li>
+                          </div>
+                        </Link>
+                         <Link passHref href="/Programmes/Hs">
+                          <div
+                            style={{ minWidth: "150px" }}
+                            className={
+                              router.pathname == "/Programmes/Hs"
                                 ? "bg-primary py-2 rounded-b"
                                 : "bg-navbg hover:bg-primary py-2 rounded-b"
                             }
@@ -288,7 +322,7 @@ export default function Navbar() {
                             <li className=" px-4 block whitespace-no-wrap text-sm ">
                               <p className="whitespace-nowrap">
                                 {" "}
-                                BS PROGRAMMES
+                               RABBANI FINISHING SCHOOL
                               </p>
                             </li>
                           </div>

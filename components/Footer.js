@@ -76,7 +76,7 @@ const Footer = () => {
               {/* <h3 className="text-xl pl-8 pt-5  font-bold">JAMIA MADEENATHUNNOOR</h3> */}
             </div>
             <p className="text-justify pl-8">
-Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting traditional Islamic learning with diverse modern disciplines. Its multicultural atmosphere encourages rich dialogue, while the serene campus supports holistic growth. With strong moral values and dedicated faculty, the Jamia nurtures compassionate, capable leaders ready to serve society.
+              Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting traditional Islamic learning with diverse modern disciplines. Its multicultural atmosphere encourages rich dialogue, while the serene campus supports holistic growth. With strong moral values and dedicated faculty, the Jamia nurtures compassionate, capable leaders ready to serve society.
             </p>
           </div>
 
@@ -109,8 +109,8 @@ Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting tra
               )}
             </div>
           </div>
-<div>
-  <h1 className="font-bold mb-4 pb-2 text-lg">Get In Touch</h1>
+          <div>
+            <h1 className="font-bold mb-4 pb-2 text-lg">Get In Touch</h1>
             <address className="not-italic space-y-3">
               <p className="flex items-start">
                 <FaMapMarkerAlt className="mt-1 mr-3 flex-shrink-0" />
@@ -138,7 +138,7 @@ Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting tra
                 Mon-Sat: 9:00 AM - 5:00 PM
               </p>
             </address>
-</div>
+          </div>
 
           {/* Social Media */}
           <div>
@@ -169,9 +169,9 @@ Jamia Madeenathunnoor exemplifies academic and spiritual excellence, uniting tra
               <p className="text-gray-400 text-center">
                 © 2025 Jamia Madeenathunnoor. All Rights Reserved.
               </p>
-         
+
             </div>
-  
+
           </div>
         </div>
       </div>

@@ -24,7 +24,7 @@ const MilestoneSection = () => {
     { number: 3, label: "Post Doctoral Fellowships", id: 5 },
     { number: 31, label: "PhD Researchers", id: 3 },
     { number: 3, label: "Doctors", id: 14 },
-    { number: 1, label: "Chartered Accountant", id: 56 },
+    { number: 3, label: "Chartered Accountant", id: 56 },
     { number: 78, label: "Mudarris", id: 4 },
     { number: 40, label: "Advocates", id: 2 },
     { number: 323, label: "Post Graduates", id: 12 },
@@ -41,7 +41,7 @@ const MilestoneSection = () => {
     >
       <div className="container mx-auto px-4">
         <h2 className="text-2xl md:text-3xl font-bold text-center  text-secondary mb-8 md:mb-12">
-          JOURNEY<span className="text-primary"> OF 23 YEARS</span>
+          JOURNEY<span className="text-primary"> OF 25 YEARS</span>
         </h2>
 
         {/* Primary Milestones - Highlighted */}

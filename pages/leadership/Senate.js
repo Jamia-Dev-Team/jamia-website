@@ -31,13 +31,13 @@ const Senate = () => {
       designation: "Chief Admin Officer",
     },
     {
-      name: "Zuhairudheen Nurani",
-      image: "/images/senate/zuhair-nurani.jpg",
+      name: "jafar Nurani",
+      image: "/images/senate/jafar-nurani.jpg",
       designation: "Chairman, Prism Foundation",
     },
     {
-      name: "Jafar Nurani",
-      image: "/images/senate/jafar-nurani.jpg",
+      name: "Zuhairudheen Nurani",
+      image: "/images/senate/zuhair-nurani.jpg",
       designation: "Convenor, Prism Foundation",
     },
   ];

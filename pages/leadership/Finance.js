@@ -42,7 +42,13 @@ const ExicutiveCouncil = () => {
       image: "/images/finance/ubaid-saqafi.jpeg",
       designation: "Chief Accountant",
       
-    }
+    },
+    {
+      name: "Aslam Nurani",
+      image: "/images/finance/aslam-nurani.jpg",
+      designation: "Finance Officer",
+  
+    },
    ]
 
   return (

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import {   FaChalkboardTeacher, FaUserGraduate, FaCalendarAlt, FaArrowRight, FaBook } from 'react-icons/fa';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import { hsProgrammes } from '../../assets/data/programmes';
+import { hssProgrammes } from '../../assets/data/programmes';
 
 const HSSProgrammePage = () => {
  
@@ -39,7 +39,7 @@ const HSSProgrammePage = () => {
         />
         <div className="absolute inset-0 flex items-center justify-center text-center px-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">HSS Programme</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">SENIOR SCHOOL</h1>
             <p className="text-xl text-white">Higher Secondary Education with Islamic Foundation</p>
           </div>
         </div>
@@ -48,7 +48,7 @@ const HSSProgrammePage = () => {
       {/* Programme Overview */}
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">HSS PROGRAMME</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">SENIOR SCHOOL</h2>
           <div className="prose prose-lg text-gray-600 mb-12">
             <p>
               The students will parallelly complete Higher secondary course under the SCERT, Government of Kerala 
@@ -75,7 +75,7 @@ const HSSProgrammePage = () => {
             <h3 className="text-2xl font-bold text-gray-800 mb-6">Available Streams</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {hsProgrammes.map((programme) => (
+              {hssProgrammes.map((programme) => (
                 <div key={programme.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                   <div className="p-6">
                     <div className="flex items-start mb-4">
@@ -85,10 +85,10 @@ const HSSProgrammePage = () => {
                       <h3 className="text-xl font-bold text-gray-800">{programme.course}</h3>
                     </div>
                     
-                    <div className="flex items-center text-gray-600 mb-4">
+                    {/* <div className="flex items-center text-gray-600 mb-4">
                       <FaCalendarAlt className="mr-2 text-secondary" />
                       <span className="font-medium">Intake: {programme.intake} students per year</span>
-                    </div>
+                    </div> */}
                     
                     <h4 className="text-lg font-semibold text-gray-800 mb-3">Learning Outcomes:</h4>
                     <ul className="space-y-2 text-gray-600">
@@ -156,11 +156,11 @@ const HSSProgrammePage = () => {
                   </li>
                   <li className="flex justify-between border-b pb-2">
                     <span>Entrance Exam:</span>
-                    <span className="font-medium">April 15</span>
+                    <span className="font-medium">mid April</span>
                   </li>
                   <li className="flex justify-between border-b pb-2">
                     <span>Academic Year Begins:</span>
-                    <span className="font-medium">June 1</span>
+                    <span className="font-medium">first June</span>
                   </li>
                 </ul>
               </div>
@@ -168,11 +168,11 @@ const HSSProgrammePage = () => {
           </div>
 
           {/* CTA */}
-          <div className="text-center mt-16">
+          {/* <div className="text-center mt-16">
             <button className="bg-primary hover:bg-primary/70 text-white px-8 py-3 rounded-lg font-medium inline-flex items-center">
               Download Prospectus <FaArrowRight className="ml-2" />
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
    <Footer/>

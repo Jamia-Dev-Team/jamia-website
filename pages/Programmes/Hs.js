@@ -5,7 +5,7 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { hsProgrammes } from '../../assets/data/programmes';
 export default function Hs() {
-  
+
 
   const features = [
     {
@@ -15,7 +15,7 @@ export default function Hs() {
     },
     {
       title: "Expert Faculty",
-      description: "Experienced teachers in both secular and religious studies",
+      description: "Experienced teachers in both curriculum and co-curriculum",
       icon: <FaChalkboardTeacher className="text-2xl" />
     },
     {
@@ -28,18 +28,18 @@ export default function Hs() {
   return (
     <div className="bg-gray-50">
       {/* Hero Section */}
-      <Navbar/>
+      <Navbar />
       <div className="relative h-64 md:h-96 bg-blue-900  pt-80 pb-10 lg:py-40">
         <Image
           src="/photos/20.jpg"
           alt="HS Programme Students"
-        layout='fill'
+          layout='fill'
           className="object-cover opacity-80"
           priority
         />
         <div className="absolute inset-0 flex items-center justify-center text-center px-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">HS Programme</h1>
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">JUNIOR SCHOOL</h1>
             <p className="text-xl text-white">Higher School Education with Islamic Foundation</p>
           </div>
         </div>
@@ -48,13 +48,11 @@ export default function Hs() {
       {/* Programme Overview */}
       <section className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-800 mb-6">HS PROGRAMME</h2>
+          <h2 className="text-2xl font-bold text-gray-800 mb-6">JUNIOR SCHOOL</h2>
           <div className="prose prose-lg text-gray-600 mb-12">
             <p>
-              The students will parallelly complete Higher school course under the SCERT, Government of Kerala 
-              and with the foundation course in Islamic studies. Students will be admitted based on their marks 
-              obtained in entrance examination for selection process and their preference of courses. The final 
-              decision on the course preference will be vested in the Jamia Madeenathunnoor authority.
+              The Junior School programme enables students to pursue their High School education parallelly with foundational Islamic studies. Jamia Madeenathunnoor offers four academic tracks: Islamic Theology & Arabic Literature, Science & Technology, Competitive Exam, and Finance & Management. Each stream integrates SCERT-aligned school curriculum with corresponding Madrasa levels, ensuring both academic excellence and spiritual grounding. Admissions are based on entrance examination performance, interview assessment, and the student’s preferred academic track. The final allocation of streams will be decided by the Jamia Madeenathunnoor authority.
+
             </p>
           </div>
 
@@ -78,7 +76,7 @@ export default function Hs() {
                     <Image
                       src={school.image}
                       alt={school.name}
-                     layout='fill'
+                      layout='fill'
                       className="object-cover"
                     />
                   </div>
@@ -89,12 +87,12 @@ export default function Hs() {
                       </div>
                       <h3 className="text-2xl font-bold text-gray-800">{school.name}</h3>
                     </div>
-                    
-                    <div className="flex items-center text-gray-600 mb-6">
+
+                    {/* <div className="flex items-center text-gray-600 mb-6">
                       <FaCalendarAlt className="mr-2 " />
                       <span className="font-medium">Intake: {school.intake} students</span>
-                    </div>
-                    
+                    </div> */}
+
                     <h4 className="text-lg font-semibold text-gray-800 mb-3">Course Outcomes:</h4>
                     <ul className="space-y-2 text-gray-600">
                       {school.outcomes.map((outcome, index) => (
@@ -117,7 +115,7 @@ export default function Hs() {
               <div>
                 <h4 className="font-bold text-gray-800 mb-2">Requirements:</h4>
                 <ul className="list-disc pl-5 text-gray-600 space-y-1">
-                  <li>Completed 10th grade or equivalent</li>
+                  <li> Completed School 7th Standard from any recognized board</li>
                   <li>Entrance examination scores</li>
                   <li>Application form submission</li>
                 </ul>
@@ -127,15 +125,15 @@ export default function Hs() {
                 <ul className="text-gray-600 space-y-2">
                   <li className="flex justify-between">
                     <span>Application opens:</span>
-                    <span className="font-medium">January 15</span>
+                    <span className="font-medium">mid January </span>
                   </li>
                   <li className="flex justify-between">
                     <span>Entrance exam:</span>
-                    <span className="font-medium">March 10</span>
+                    <span className="font-medium">first March</span>
                   </li>
                   <li className="flex justify-between">
                     <span>Classes begin:</span>
-                    <span className="font-medium">June 1</span>
+                    <span className="font-medium">first June</span>
                   </li>
                 </ul>
               </div>
@@ -143,16 +141,15 @@ export default function Hs() {
           </div>
 
           {/* CTA */}
-          <div className="text-center mt-16">
+          {/* <div className="text-center mt-16">
             <button className="bg-primary hover:bg-primary/70 text-white px-8 py-3 rounded-lg font-medium inline-flex items-center">
               Apply Now <FaArrowRight className="ml-2" />
             </button>
-          </div>
+          </div> */}
         </div>
       </section>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
 
- 
