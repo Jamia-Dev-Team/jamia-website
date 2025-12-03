@@ -14,10 +14,11 @@
   "dependencies": {
     "aos": "^2.3.4",
     "axios": "^0.25.0",
-    "cloudinary": "^2.6.0",
+    "cloudinary": "^2.8.0",
     "clsx": "^2.1.1",
     "cookie": "^0.4.1",
     "core-js": "^3.41.0",
+    "dotenv": "^17.2.3",
     "formidable": "^3.5.2",
     "js-cookie": "^3.0.1",
     "lucide-react": "^0.555.0",
@@ -25,6 +26,7 @@
     "mongodb": "^6.5.0",
     "mongoose": "^8.3.2",
     "next": "12.0.8",
+    "p-limit": "^7.2.0",
     "react": "17.0.2",
     "react-countup": "^6.1.1",
     "react-dom": "17.0.2",
@@ -44,5 +46,21 @@
     "eslint-config-next": "12.0.8",
     "postcss": "^8.4.5",
     "tailwindcss": "^3.0.15"
-  }
+  },
+  "version": "1.0.0",
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": "next.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jamia-Dev-Team/jamia-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+
+
+  "bugs": {
+    "url": "https://github.com/Jamia-Dev-Team/jamia-website/issues"
+  },
+  "homepage": "https://github.com/Jamia-Dev-Team/jamia-website#readme"
 }

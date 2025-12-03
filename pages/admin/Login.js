@@ -34,7 +34,7 @@ export default function Login() {
         // Redirect to the admin dashboard or another page
         const cookies = (await import("js-cookie")).default;
         cookies.set("admin", "true");
-        window.location.href = "/admin/dashboard";
+        window.location.href = "/admin/dashboard/news";
         setVerifying(false);
       } else {
         // Handle login error
