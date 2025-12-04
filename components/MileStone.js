@@ -13,7 +13,7 @@ const MilestoneSection = () => {
   // Primary milestones (highlighted)
   const primaryMilestones = [
     { number: 40, label: "Nations", id: 1 },
-    { number: 40, label: "Campuses", id: 2 },
+    { number: 61, label: "Campuses", id: 2 },
     { number: 24, label: "States", id: 3 },
   ];
 
@@ -23,14 +23,14 @@ const MilestoneSection = () => {
     { number: 2, label: "Full Bright Scholarships", id: 31 },
     { number: 3, label: "Post Doctoral Fellowships", id: 5 },
     { number: 31, label: "PhD Researchers", id: 3 },
-    { number: 3, label: "Doctors", id: 14 },
+    { number: 6, label: "Doctors", id: 14 },
     { number: 3, label: "Chartered Accountant", id: 56 },
-    { number: 78, label: "Mudarris", id: 4 },
-    { number: 40, label: "Advocates", id: 2 },
-    { number: 323, label: "Post Graduates", id: 12 },
-    { number: 98, label: "Professionals", id: 1 },
+    { number: 104, label: "Global Islamic Leaders", id: 4 },
+    { number: 51, label: "Advocates", id: 2 },
+    { number: 448, label: "Post Graduates", id: 12 },
+    { number: 99, label: "Professionals", id: 1 },
     { number: 200, label: "Social Workers", id: 31 },
-    { number: 2500, label: "Students", id: 18 },
+    { number: 2554, label: "Students", id: 18 },
   ];
 
   return (

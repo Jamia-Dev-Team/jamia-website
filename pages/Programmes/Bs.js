@@ -20,7 +20,7 @@ const BSProgrammePage = () => {
     },
     {
       title: "Specialized Tracks",
-      description: "Seven distinct academic disciplines available",
+      description: "Six distinct academic disciplines available",
       icon: <FaGraduationCap className="text-2xl text-green-600" />,
     },
     {
@@ -63,12 +63,8 @@ const BSProgrammePage = () => {
           </h2>
           <div className="prose prose-lg text-gray-600 mb-12">
             <p>
-              Jamia Madeenathunnoor offers seven courses in bachelor programs
-              viz Science, Commerce, History, Sociology, Psychology, English
-              literature and Arabic literature. Students will be admitted based
-              on their score obtained in the selection process and their
-              preference. The final decision on the preference and admission
-              will be vested in the Jamia Madeenathunnoor authority.
+              The Undergraduate School offers a dual-structured academic model combining UGC-approved bachelor’s degrees with the Bachelor in Islamic Science. Students can specialize in disciplines such as Arabic, English, History, Sociology, Commerce, Business Administration, Life Sciences, Engineering, or Quranic Studies. The programme is designed to cultivate intellectual depth, research aptitude, and Islamic scholarship through a comprehensive curriculum, advanced Madrasa studies, and structured academic mentoring. Admissions are based on eligibility, entrance performance, and institutional discretion.
+
             </p>
           </div>
 
@@ -108,12 +104,12 @@ const BSProgrammePage = () => {
                       </h3>
                     </div>
 
-                    <div className="flex items-center text-gray-600 mb-4">
+                    {/* <div className="flex items-center text-gray-600 mb-4">
                       <FaCalendarAlt className="mr-2 text-blue-600" />
                       <span className="font-medium">
                         Intake: {programme.intake} students per batch
                       </span>
-                    </div>
+                    </div> */}
 
                     <h4 className="text-lg font-semibold text-gray-800 mb-3">
                       Programme Outcomes:
@@ -219,15 +215,15 @@ const BSProgrammePage = () => {
                   </li>
                   <li className="flex justify-between border-b pb-2">
                     <span>Entrance Exam:</span>
-                    <span className="font-medium">May 15</span>
+                    <span className="font-medium">mid May</span>
                   </li>
                   <li className="flex justify-between border-b pb-2">
                     <span>Interview Week:</span>
-                    <span className="font-medium">June 1-7</span>
+                    <span className="font-medium">first June</span>
                   </li>
                   <li className="flex justify-between">
                     <span>Semester Begins:</span>
-                    <span className="font-medium">July 15</span>
+                    <span className="font-medium">mid July</span>
                   </li>
                 </ul>
               </div>

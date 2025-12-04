@@ -45,7 +45,10 @@ const Footer = () => {
       url: "https://www.youtube.com/c/GlocalMediaMarkazGarden",
       name: "YouTube",
     },
-    { icon: <FaLinkedin className="text-xl" />, url: "#", name: "LinkedIn" },
+    { icon: <FaLinkedin className="text-xl" />, 
+      url: "https://www.linkedin.com/company/jamia-madeenathunnoor/posts/?feedView=all",
+      name: "LinkedIn",
+    },
   ];
 
   const importantLinks = [
@@ -56,7 +59,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-primary text-white pt-12 pb-8  items-center ">
+    <footer className=" bg-green-900 text-white pt-12 pb-8  items-center ">
       <div className="container mx-auto px-4  ">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8  ">
           {/* University Info */}
@@ -117,9 +120,14 @@ const Footer = () => {
             <address className="not-italic space-y-3">
               <p className="flex items-start">
                 <FaMapMarkerAlt className="mt-1 mr-3 flex-shrink-0" />
+                <a 
+                href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15642.429655451811!2d75.9051301!3d11.4360147!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf60ace6147523af3!2sMarkaz%20Garden!5e0!3m2!1sen!2sin!4v1642778170307!5m2!1sen!2sin"
+                className="hover:text-blue-300"
+                >
                 Poonoor, Unnikulam(PO), Kozhikode, Kerala
                 <br />
                 India - PIN: 673 574
+                </a>
               </p>
               <p className="flex items-center">
                 <FaPhone className="mr-3 flex-shrink-0" />

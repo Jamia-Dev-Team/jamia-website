@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Image from 'next/image';
 import { FaUsers, FaGlobe, FaGraduationCap, FaHandsHelping, FaArrowRight } from 'react-icons/fa';
@@ -39,7 +40,7 @@ const AlumniPage = () => {
                 />
               </div>
               <a 
-                href="https://prismfoundation.org" 
+                href="https://www.prismonline.org/" 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-primary hover:bg-primary/80 text-white px-6 py-3 rounded-lg font-medium inline-flex items-center"
@@ -55,7 +56,7 @@ const AlumniPage = () => {
               <p>
                 The PRISM Foundation (Potential Resources Innovation and Social Management) is an initiative of the alumni of 
                 Jamia Madeenathunnoor – Nurani Graduates. It has been actively engaging in educational and community services 
-                with more than 250+ members and active working chapters at national and international levels for the last ten years, 
+                with more than 1199+ members and active working chapters at national and international levels for the last ten years, 
                 majorly focusing on livelihood and educational activities.
               </p>
             </div>
@@ -64,7 +65,7 @@ const AlumniPage = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
               <div className="bg-white p-4 rounded-lg shadow-sm text-center">
                 <FaUsers className="text-3xl text-blue-600 mx-auto mb-2" />
-                <div className="text-2xl font-bold">250+</div>
+                <div className="text-2xl font-bold">1199+</div>
                 <div className="text-gray-600">Members</div>
               </div>
               <div className="bg-white p-4 rounded-lg shadow-sm text-center">
@@ -126,11 +127,11 @@ const AlumniPage = () => {
               </div>
             ))}
           </div>
-          <div className="text-center mt-6">
+          {/* <div className="text-center mt-6">
             <button className="text-secondary font-medium hover:underline">
               View More Photos
             </button>
-          </div>
+          </div> */}
         </div>
 
        

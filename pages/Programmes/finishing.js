@@ -9,18 +9,18 @@ export default function finishing() {
 
   const features = [
     {
-      title: "Dual Curriculum",
-      description: "Combines SCERT syllabus with Islamic studies",
+      title: "Advanced Scholarship",
+      description: "Deep training in classical and contemporary Islamic theology",
       icon: <FaBook className="text-2xl" />
     },
     {
-      title: "Expert Faculty",
-      description: "Experienced teachers in both curriculum and co-curriculum",
+      title: "Research Excellence",
+      description: "Structured dissertation work supported by field immersion and internships",
       icon: <FaChalkboardTeacher className="text-2xl" />
     },
     {
-      title: "Holistic Development",
-      description: "Focus on academic, spiritual and character growth",
+      title: "Scholarly Leadership",
+      description: "Preparation for teaching, academic roles, and leadership",
       icon: <FaUserGraduate className="text-2xl" />
     }
   ];
@@ -68,7 +68,7 @@ export default function finishing() {
           </div>
 
           {/* Schools List */}
-          <div className="space-y-12">
+          {/* <div className="space-y-12">
             {hsProgrammes.map((school) => (
               <div key={school.id} className="bg-white rounded-xl shadow-md overflow-hidden">
                 <div className="md:flex">
@@ -86,14 +86,14 @@ export default function finishing() {
                         {school.icon}
                       </div>
                       <h3 className="text-2xl font-bold text-gray-800">{school.name}</h3>
-                    </div>
+                    </div> */}
 
                     {/* <div className="flex items-center text-gray-600 mb-6">
                       <FaCalendarAlt className="mr-2 " />
                       <span className="font-medium">Intake: {school.intake} students</span>
                     </div> */}
 
-                    <h4 className="text-lg font-semibold text-gray-800 mb-3">Course Outcomes:</h4>
+                    {/* <h4 className="text-lg font-semibold text-gray-800 mb-3">Course Outcomes:</h4>
                     <ul className="space-y-2 text-gray-600">
                       {school.outcomes.map((outcome, index) => (
                         <li key={index} className="flex">
@@ -104,12 +104,12 @@ export default function finishing() {
                     </ul>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              </div> */}
+            {/* ))} */}
+          {/* </div> */}
 
           {/* Admission Info */}
-          <div className="bg-primary/5 rounded-xl p-8 mt-12">
+          {/* <div className="bg-primary/5 rounded-xl p-8 mt-12">
             <h3 className="text-2xl font-bold text-gray-800 mb-4">Admission Process</h3>
             <div className="grid md:grid-cols-2 gap-6">
               <div>
@@ -138,7 +138,7 @@ export default function finishing() {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
 
           {/* CTA */}
           {/* <div className="text-center mt-16">

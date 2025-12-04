@@ -23,12 +23,12 @@ const AboutPage = () => {
     },
     {
       icon: <FaUniversity className="text-3xl" />,
-      value: "40+",
+      value: "61+",
       label: "Campuses",
     },
     {
       icon: <FaUsers className="text-3xl" />,
-      value: "2500+",
+      value: "2554+",
       label: "Students",
     },
     {

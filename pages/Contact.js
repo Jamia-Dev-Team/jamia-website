@@ -20,33 +20,36 @@ const ContactPage = () => {
       name: "Facebook",
     },
     {
-      icon: <FaTwitter className="text-xl" />,
+      icon: <FaInstagram className="text-xl" />,
       url: "https://www.instagram.com/jamia_madeenathunnoor/",
-      name: "Twitter",
+      name: "Instagram",
     },
-    { icon: <FaInstagram className="text-xl" />, url: "#", name: "Instagram" },
+    // { icon: <FaInstagram className="text-xl" />, url: "#", name: "Instagram",},
     {
       icon: <FaYoutube className="text-xl" />,
       url: "https://www.youtube.com/c/GlocalMediaMarkazGarden",
       name: "YouTube",
     },
-    { icon: <FaLinkedin className="text-xl" />, url: "#", name: "LinkedIn" },
+    { icon: <FaLinkedin className="text-xl" />, 
+      url: "https://www.linkedin.com/company/jamia-madeenathunnoor/posts/?feedView=all", 
+      name: "LinkedIn",
+    },
   ];
 
   const departments = [
     {
       name: "Admissions",
-      email: "info@jamiamadeenathunoor.org",
+      email: "admissions@jamiamadeenathunoor.org",
       phone: "8086 798 8392",
     },
     {
       name: "Academic Office",
-      email: "info@jamiamadeenathunoor.org",
-      phone: "0495 2963484",
+      email: "academia@jamiamadeenathunoor.org",
+      phone: "702 589 9571",
     },
     {
       name: "Student Affairs",
-      email: "info@jamiamadeenathunoor.org",
+      email: "dean_students@jamiamadeenathunnoor.org",
       phone: "0495 2963484",
     },
     {

@@ -11,84 +11,74 @@ import {
 import { FiBookOpen } from "react-icons/fi";
 import { MdOutlineComputer } from "react-icons/md";
 import { TbReportMoney } from "react-icons/tb";
+import { FaQuran } from "react-icons/fa";
 
 const bsProgrammes = [
   {
     id: 1,
-    course: "Bachelor in Islamic Studies & Science (BISSc)",
+    course: "School of Islamic Revealed Knowledge",
     intake: 25,
     outcomes: [
-      "Integrated studies between Islam & science",
+      "Integrated studies between Islamic studies & Arts",
       "Complete Mukhthasar course in Islamic studies",
-      "Complete degree in science disciplines",
+      "Complete degree in Arabic",
     ],
-    icon: <FaFlask className="text-3xl text-blue-600" />,
+    icon: <FaBook className="text-3xl text-blue-600" />,
   },
   {
     id: 2,
-    course: "Bachelor in Islamic Studies & Psychology (BISP)",
+    course: " School of Social Science and Civilization",
     intake: 25,
     outcomes: [
-      "Integrated studies between Islam & psychology",
+      "Integrated studies between Islamic studies & in Social Science and Islamic Civilization",
       "Complete Mukhthasar course in Islamic studies",
-      "Complete degree in psychology",
+      "Complete degree in History, Sociology, Politics",
     ],
-    icon: <FaBrain className="text-3xl text-purple-600" />,
+    icon: <FaLandmark className="text-3xl text-purple-600" />,
   },
   {
     id: 3,
-    course: "Bachelor in Islamic Studies & Commerce (BISC)",
+    course: " School of Quranic Studies and Arts",
     intake: 25,
     outcomes: [
-      "Integrated studies between Islam & commerce",
+      "Integrated studies between Islamic studies & Quranic Studies and Arts",
       "Complete Mukhthasar course in Islamic studies",
-      "Complete degree B.Com",
+      "Complete degree  Humanities / Arts (Subject to selection)",
     ],
-    icon: <FaChartLine className="text-3xl text-green-600" />,
+    icon: <FaQuran className="text-3xl text-green-600" />,
   },
   {
     id: 4,
-    course: "Bachelor in Islamic Studies & History (BISH)",
+    course: " School of Finance and Management",
     intake: 25,
     outcomes: [
-      "Integrated studies between Islam & history",
+      "Integrated studies between Islamic studies & Islamic Finance and Management Studies",
       "Complete Mukhthasar course in Islamic studies",
-      "Complete degree in history",
+      "Complete degree in Commerce, Business Administration(BBA)",
     ],
-    icon: <FaLandmark className="text-3xl text-yellow-600" />,
+    icon: <TbReportMoney className="text-3xl text-yellow-600" />,
   },
   {
     id: 5,
-    course: "Bachelor in Islamic Studies & Sociology (BISSo)",
+    course: " School of Language and Literature",
     intake: 25,
     outcomes: [
-      "Integrated studies between Islam & social science",
+      "Integrated studies between Islamic studies & Language and Literature",
       "Complete Mukhthasar course in Islamic studies",
-      "Complete degree in sociology",
+      "Complete degree in English, Arabic, Urdu",
     ],
-    icon: <FaUsers className="text-3xl text-red-600" />,
+    icon: <FaLanguage className="text-3xl text-red-600" />,
   },
   {
     id: 6,
-    course: "Bachelor in Islamic Studies & Arabic Literature (BISAL)",
+    course: "School of Pure Science and Technology",
     intake: 25,
     outcomes: [
-      "Integrated studies between Islam & Arabic literature",
+      "Integrated studies between Islamic studies & Pure Science and Technology",
       "Complete Mukhthasar course in Islamic studies",
-      "Complete degree in Arabic literature",
+      "Complete degree in Medicine, Engineering, Life Science, Technology",
     ],
-    icon: <FaLanguage className="text-3xl text-indigo-600" />,
-  },
-  {
-    id: 7,
-    course: "Bachelor in Islamic Studies & English Literature (BISEL)",
-    intake: 25,
-    outcomes: [
-      "Integrated studies between Islam & English literature",
-      "Complete Mukhthasar course in Islamic studies",
-      "Complete degree in English literature",
-    ],
-    icon: <FaBook className="text-3xl text-teal-600" />,
+    icon: <FaFlask className="text-3xl text-indigo-600" />,
   },
 ];
 
