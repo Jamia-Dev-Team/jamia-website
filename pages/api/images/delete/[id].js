@@ -30,7 +30,7 @@
 
 
 // pages/api/images/[id].js
-const { getPool } = require("../../../utils/db"); // adjust path if needed
+const { getPool } = require("../../../../utils/db"); 
 
 module.exports = async (req, res) => {
   const {
