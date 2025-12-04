@@ -11,6 +11,7 @@ import {
 import { FiBookOpen } from "react-icons/fi";
 import { MdOutlineComputer } from "react-icons/md";
 import { TbReportMoney } from "react-icons/tb";
+import { FaQuran } from "react-icons/fa";
 
 const bsProgrammes = [
   {
@@ -22,7 +23,7 @@ const bsProgrammes = [
       "Complete Mukhthasar course in Islamic studies",
       "Complete degree in Arabic",
     ],
-    icon: <FaFlask className="text-3xl text-blue-600" />,
+    icon: <FaBook className="text-3xl text-blue-600" />,
   },
   {
     id: 2,
@@ -33,7 +34,7 @@ const bsProgrammes = [
       "Complete Mukhthasar course in Islamic studies",
       "Complete degree in History, Sociology, Politics",
     ],
-    icon: <FaBrain className="text-3xl text-purple-600" />,
+    icon: <FaLandmark className="text-3xl text-purple-600" />,
   },
   {
     id: 3,
@@ -44,7 +45,7 @@ const bsProgrammes = [
       "Complete Mukhthasar course in Islamic studies",
       "Complete degree  Humanities / Arts (Subject to selection)",
     ],
-    icon: <FaChartLine className="text-3xl text-green-600" />,
+    icon: <FaQuran className="text-3xl text-green-600" />,
   },
   {
     id: 4,
@@ -55,7 +56,7 @@ const bsProgrammes = [
       "Complete Mukhthasar course in Islamic studies",
       "Complete degree in Commerce, Business Administration(BBA)",
     ],
-    icon: <FaLandmark className="text-3xl text-yellow-600" />,
+    icon: <TbReportMoney className="text-3xl text-yellow-600" />,
   },
   {
     id: 5,
@@ -66,7 +67,7 @@ const bsProgrammes = [
       "Complete Mukhthasar course in Islamic studies",
       "Complete degree in English, Arabic, Urdu",
     ],
-    icon: <FaUsers className="text-3xl text-red-600" />,
+    icon: <FaLanguage className="text-3xl text-red-600" />,
   },
   {
     id: 6,
@@ -77,7 +78,7 @@ const bsProgrammes = [
       "Complete Mukhthasar course in Islamic studies",
       "Complete degree in Medicine, Engineering, Life Science, Technology",
     ],
-    icon: <FaLanguage className="text-3xl text-indigo-600" />,
+    icon: <FaFlask className="text-3xl text-indigo-600" />,
   },
 ];
 
@@ -118,18 +119,18 @@ const hsProgrammes = [
     ],
     image: "/photos/61.jpg",
   },
-  // {
-  //   id: 4,
-  //   name: "School of Finance and Management",
-  //   icon: <TbReportMoney className="text-3xl text-secondary" />,
-  //   intake: 25,
-  //   outcomes: [
-  //     "Integrated studies between Islamic studies & CA, CMA , ACCA , CS , CAT Foundation Course",
-  //     "Complete Foundation course in Islamic studies",
-  //     "Complete HS in commerc",
-  //   ],
-  //   image: "/photos/62.jpg",
-  // },
+  {
+    id: 4,
+    name: "School of Finance and Management",
+    icon: <TbReportMoney className="text-3xl text-secondary" />,
+    intake: 25,
+    outcomes: [
+      "Integrated studies between Islamic studies & CA, CMA , ACCA , CS , CAT Foundation Course",
+      "Complete Foundation course in Islamic studies",
+      "Complete HS in commerc",
+    ],
+    image: "/photos/62.jpg",
+  },
 ];
 
 const hssProgrammes = [

@@ -42,7 +42,7 @@ const AboutSection = () => {
               </p>
               <p>
                 With dedicated faculties, Jamia Madeenathunnoor stands as a
-                beacon of enlightenment, shaping future gener- ations poised to
+                beacon of enlightenment, shaping future generations poised to
                 make meaningful contributions to society.
               </p>
             </div>

@@ -46,8 +46,8 @@ const HeroBanner = () => {
     {
       id: 4,
       image: "/photos/5.jpg",
-      heading: "40+ Campuses",
-      subheading: "One Curriculum, 40+ Gateways to Knowledge",
+      heading: "61+ Campuses",
+      subheading: "One Curriculum, 61+ Gateways to Knowledge",
     },
   ];
 
@@ -84,11 +84,12 @@ const HeroBanner = () => {
                   {slide.subheading}
                 </p>
                 <div className="flex justify-center gap-4">
-                  <a href="#about">
+                  <Link passHref href={"/About"}>
                     <button className="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-md flex items-center transition-colors">
                       Know More <FaArrowRight className="ml-2" />
                     </button>
-                  </a>
+                  </Link>  
+                  {/* </a> */}
                   <Link passHref href={"/Programmes"}>
                     <button className="bg-white hover:bg-white/80 text-primary px-6 py-3 rounded-md flex items-center transition-colors">
                       Programmes <FaBookOpen className="ml-2" />

@@ -19,7 +19,7 @@ const ExicutiveCouncil = () => {
     {
       name: "Irshad Nurani",
       image: "/images/exicutive/irshad-nurani.jpeg",
-      designation: "Dean of Faculty Affairs",
+      designation: "Dean of Faculty and Management Affairs",
     },
     {
       name: "Yunus Ahsani",
@@ -55,6 +55,11 @@ const ExicutiveCouncil = () => {
       name: "Ubaid Nurani",
       image: "/images/exicutive/ubaid-nurani.jpg",
       designation: " Head of Junior School",
+    },
+     {
+      name: "Junaid Nurani",
+      image: "/images/exicutive/junaid-nurani.jpg",
+      designation: "Exam controller & Head of bachelor programme(open school)",
     },
   ];
 

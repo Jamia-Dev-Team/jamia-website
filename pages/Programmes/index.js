@@ -7,23 +7,37 @@ const ProgrammesPage = () => {
   const programmes = [
     {
       id: 1,
-      title: "HS Programmes",
+      title: "JUNIOR SCHOOL",
       icon: <FaSchool className="text-3xl text-blue-600" />,
       description: "Students complete Higher School course under SCERT, Government of Kerala alongside foundation courses in Islamic studies. Admission based on entrance examination marks and course preference.",
       link: "/Programmes/Hs"
     },
     {
       id: 2,
-      title: "HSS Programmes",
+      title: "SENIOR SCHOOL",
       icon: <FaGraduationCap className="text-3xl text-green-600" />,
       description: "Higher Secondary program offering Science, Commerce, and Humanities streams with Islamic studies foundation. Admission through entrance examination and course preference.",
       link: "/Programmes/Hss"
     },
     {
       id: 3,
-      title: "BS Programmes",
+      title: "GRADUATE SCHOOL",
       icon: <FaUserGraduate className="text-3xl text-purple-600" />,
       description: "Bachelor programs in Science, Commerce, History, Sociology, Psychology, English literature, and Arabic literature. Admission based on selection process scores.",
+      link: "/Programmes/Bs"
+    },
+     {
+      id: 4,
+      title: "FINISHING SCHOOL",
+      icon: <FaGraduationCap className="text-3xl text-blue-600" />,
+      description: "A one-year PG Diploma in Islamic Theology offering advanced training in leadership, research, and community engagement, with coursework, internships, field immersion, and merit-based admission.",
+      link: "/Programmes/Bs"
+    },
+    {
+      id: 4,
+      title: "RABBANI FINISHING SCHOOL",
+      icon: <FaUserGraduate className="text-3xl text-green-600" />,
+      description: "The Rabbani Finishing School offers a one-year PG Diploma in leadership and Islamic scholarship with training and internships preparing graduates for community roles.",
       link: "/Programmes/Bs"
     }
   ];
@@ -113,7 +127,7 @@ const ProgrammesPage = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="bg-primary/5 rounded-xl p-8 text-center">
+        {/* <div className="bg-primary/5 rounded-xl p-8 text-center">
           <h3 className="text-2xl font-bold text-gray-800 mb-4">Ready to Begin Your Journey?</h3>
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             Explore our admission process and join our community of scholars and leaders
@@ -121,7 +135,7 @@ const ProgrammesPage = () => {
           <button className="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-lg font-medium">
             Apply Now
           </button>
-        </div>
+        </div> */}
       </section>
     </div>
   );
