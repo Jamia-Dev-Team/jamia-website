@@ -310,11 +310,11 @@ export default function Navbar() {
                             </li>
                           </div>
                         </Link>
-                         <Link passHref href="/Programmes/Hs">
+                         <Link passHref href="/Programmes/rabbani">
                           <div
                             style={{ minWidth: "150px" }}
                             className={
-                              router.pathname == "/Programmes/Hs"
+                              router.pathname == "/Programmes/rabbani"
                                 ? "bg-primary py-2 rounded-b"
                                 : "bg-navbg hover:bg-primary py-2 rounded-b"
                             }

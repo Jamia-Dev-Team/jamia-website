@@ -10,30 +10,30 @@ const juniorSchools   =
       "incharge": "shameer nurani",
       "contact": "9526313398"
     },
-    {
-      "sn": "02",
-      "an": "jm019",
-      "name": "cm markaz",
-      "type": "junior",
-      "location": "mambeethi",
-      "district": "malappuram",
-      "incharge": "abdu samad nurani",
-      "contact": "9496442872"
-    },
-    {
-      "sn": "03",
-      "an": "jmo19",
-      "name": "baithul izza junior",
-      "type": "junior",
-      "location": "narikkuni",
-      "district": "calicut",
-      "incharge": "ubaidullah nurani",
-      "contact": "9061967939"
-    },
+    // {
+    //   "sn": "02",
+    //   "an": "jm019",
+    //   "name": "cm markaz",
+    //   "type": "junior",
+    //   "location": "mambeethi",
+    //   "district": "malappuram",
+    //   "incharge": "abdu samad nurani",
+    //   "contact": "9496442872"
+    // },
+    // {
+    //   "sn": "03",
+    //   "an": "jmo19",
+    //   "name": "baithul izza junior",
+    //   "type": "junior",
+    //   "location": "narikkuni",
+    //   "district": "calicut",
+    //   "incharge": "ubaidullah nurani",
+    //   "contact": "9061967939"
+    // },
     {
       "sn": "04",
       "an": "jm020",
-      "name": "dinnoorain",
+      "name": "Markaz dinnoorain",
       "type": "junior",
       "location": "naduvannoor",
       "district": "calicut",
@@ -80,16 +80,16 @@ const juniorSchools   =
       "incharge": "yaseen nurani",
       "contact": "9895928536"
     },
-    {
-      "sn": "09",
-      "an": "jm025",
-      "name": "al furqan",
-      "type": "junior",
-      "location": "thekkumthottam",
-      "district": "calicut",
-      "incharge": "shaheer nurani",
-      "contact": "9895954030"
-    }
+    // {
+    //   "sn": "09",
+    //   "an": "jm025",
+    //   "name": "al furqan",
+    //   "type": "junior",
+    //   "location": "thekkumthottam",
+    //   "district": "calicut",
+    //   "incharge": "shaheer nurani",
+    //   "contact": "9895954030"
+    // }
   ]
 
 

@@ -125,15 +125,15 @@ export default function Hs() {
                 <ul className="text-gray-600 space-y-2">
                   <li className="flex justify-between">
                     <span>Application opens:</span>
-                    <span className="font-medium">mid January </span>
+                    <span className="font-medium">Mid-January </span>
                   </li>
                   <li className="flex justify-between">
                     <span>Entrance exam:</span>
-                    <span className="font-medium">first March</span>
+                    <span className="font-medium">Early-March</span>
                   </li>
                   <li className="flex justify-between">
                     <span>Classes begin:</span>
-                    <span className="font-medium">first June</span>
+                    <span className="font-medium">Early-June</span>
                   </li>
                 </ul>
               </div>

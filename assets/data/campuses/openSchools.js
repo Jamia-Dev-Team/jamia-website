@@ -3,31 +3,31 @@ const openSchools = [
       "sn": "01",
       "an": "jmi001",
       "name": "masjid al fathah",
-      "type": "foundation",
+      "type": "senior",
       "location": "kondotty",
       "district": "malappuram",
       "incharge": "nafih nurani",
-      "contact": "97464 04976"
+      "contact": "97464 04976",
     },
     {
       "sn": "02",
       "an": "jmi002",
       "name": "asas",
-      "type": "foundation /bachelors",
+      "type": "senior & bachelors",
       "location": "padne",
       "district": "kasaragod",
       "incharge": "ajmal nurani",
-      "contact": "73063 25890"
+      "contact": "73063 25890",
     },
     {
       "sn": "03",
       "an": "jmi003",
       "name": "jamiul areesh",
-      "type": "foundation",
+      "type": "senior",
       "location": "keralapuram",
       "district": "kollam",
       "incharge": "rayif nurani",
-      "contact": "75588 15578"
+      "contact": "75588 15578",
     },
     {
       "sn": "04",
@@ -37,7 +37,7 @@ const openSchools = [
       "location": "perambra",
       "district": "calicut",
       "incharge": "basil nurani",
-      "contact": "89434 18208"
+      "contact": "89434 18208",
     },
     {
       "sn": "05",
@@ -47,108 +47,128 @@ const openSchools = [
       "location": "mananchira",
       "district": "calicut",
       "incharge": "ikram nurani",
-      "contact": "99952 88449"
+      "contact": "99952 88449",
     },
+    // {
+    //   "sn": "06",
+    //   "an": "jmi006",
+    //   "name": "badrul huda academy",
+    //   "type": "foundation",
+    //   "location": "panamaram",
+    //   "district": "wayanad",
+    //   "incharge": "rasheed irfani",
+    //   "contact": "99619 53824"
+    // },
+    // {
+    //   "sn": "07",
+    //   "an": "jmi007",
+    //   "name": "cm najah academy",
+    //   "type": "junior, foundation & bachelors",
+    //   "location": "kongad",
+    //   "district": "palakkad",
+    //   "incharge": "thanveer nurani",
+    //   "contact": "8156861771"
+    // },
     {
       "sn": "06",
-      "an": "jmi006",
-      "name": "badrul huda academy",
-      "type": "foundation",
-      "location": "panamaram",
-      "district": "wayanad",
-      "incharge": "rasheed irfani",
-      "contact": "99619 53824"
-    },
-    {
-      "sn": "07",
-      "an": "jmi007",
-      "name": "cm najah academy",
-      "type": "junior, foundation & bachelors",
-      "location": "kongad",
-      "district": "palakkad",
-      "incharge": "thanveer nurani",
-      "contact": "8156861771"
-    },
-    {
-      "sn": "08",
       "an": "jmi008",
       "name": "malharul islam academy",
-      "type": "foundation",
+      "type": "senior",
       "location": "thodupuzha",
       "district": "iduki",
       "incharge": "hasan shareef nurani",
-      "contact": "7592050265"
+      "contact": "7592050265",
     },
+    // {
+    //   "sn": "09",
+    //   "an": "jmi009",
+    //   "name": "markaz ibnul bathutha",
+    //   "type": "foundation",
+    //   "location": "krishnapura",
+    //   "district": "karnataka",
+    //   "incharge": "irfan nurani",
+    //   "contact": "97444 85212"
+    // },
     {
-      "sn": "09",
-      "an": "jmi009",
-      "name": "markaz ibnul bathutha",
-      "type": "foundation",
-      "location": "krishnapura",
-      "district": "karnataka",
-      "incharge": "irfan nurani",
-      "contact": "97444 85212"
-    },
-    {
-      "sn": "10",
+      "sn": "07",
       "an": "jmi010",
       "name": "ahlu suffa dars parapram",
-      "type": "foundation and bachelors",
+      "type": "senior & bachelors",
       "location": "parapram",
       "district": "kannur",
       "incharge": "arshad nurani",
-      "contact": "97464 31108"
+      "contact": "97464 31108",
     },
     {
-      "sn": "11",
-      "an": "jmi011",
-      "name": "madeenathu cm academy",
-      "type": "junior",
-      "location": "chilanjichal",
-      "district": "wayanad",
-      "incharge": "midlaj nurani",
-      "contact": "87149 32313"
-    },
-    {
-      "sn": "12",
+      "sn": "08",
       "an": "jmi012",
-      "name": "ahlu suffa dars varam",
-      "type": "junior, foundation & bachelors",
+      "name": "rizza'iyya irsunnabavi dars",
+      "type": "junior, senior & bachelors",
       "location": "varam",
       "district": "kannur",
       "incharge": "sayyed ubaid nurani",
-      "contact": "85474 99313"
+      "contact": "85474 99313",
     },
+    // {
+    //   "sn": "11",
+    //   "an": "jmi011",
+    //   "name": "madeenathu cm academy",
+    //   "type": "junior",
+    //   "location": "chilanjichal",
+    //   "district": "wayanad",
+    //   "incharge": "midlaj nurani",
+    //   "contact": "87149 32313"
+    // },
     {
-      "sn": "13",
+      "sn": "09",
       "an": "jmi013",
       "name": "makhdoomiya academy",
       "type": "junior",
       "location": "koothuparamb",
       "district": "kannur",
       "incharge": "mubashir nurani chembilode",
-      "contact": "62388 15280"
+      "contact": "62388 15280",
     },
     {
-      "sn": "14",
+      "sn": "10",
       "an": "jmi014",
       "name": "juma masjid peringadi",
       "type": "junior",
       "location": "peringadi",
       "district": "mahe",
       "incharge": "haris nurani",
-      "contact": "96458 67846"
+      "contact": "96458 67846",
     },
     {
-      "sn": "15",
+      "sn": "11",
       "an": "jmi015",
-      "name": "juma masjid ayiroor",
+      "name": "dalailusunna ayiroor",
       "type": "junior",
       "location": "ayiroor",
       "district": "malappuram",
       "incharge": "sayyed hashim adany",
-      "contact": "97468 92687"
-    }
+      "contact": "97468 92687",
+    },
+    {
+      "sn": "12",
+      "an": "jmi016",
+      "name": "madeena makdhoom",
+      "type": "bachelor",
+      "location": "viripadam",
+      "district": "malappuram",
+      "incharge": "midlaj nurani anakkara",
+      "contact": "7034678445",
+    },
+    {
+      "sn": "13",
+      "an": "jmi017",
+      "name": "markaz masjid",
+      "type": "bachelor",
+      "location": "medical collage",
+      "district": "calicut",
+      "incharge": "uvais nurani avilora",
+      "contact": "9048837313",
+    },
   ]
 
 export default openSchools
