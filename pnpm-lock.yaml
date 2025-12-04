@@ -15,7 +15,7 @@ importers:
         specifier: ^0.25.0
         version: 0.25.0
       cloudinary:
-        specifier: ^2.6.0
+        specifier: ^2.8.0
         version: 2.8.0
       clsx:
         specifier: ^2.1.1
@@ -26,12 +26,18 @@ importers:
       core-js:
         specifier: ^3.41.0
         version: 3.47.0
+      dotenv:
+        specifier: ^17.2.3
+        version: 17.2.3
       formidable:
         specifier: ^3.5.2
         version: 3.5.4
       js-cookie:
         specifier: ^3.0.1
         version: 3.0.5
+      lucide-react:
+        specifier: ^0.555.0
+        version: 0.555.0(react@17.0.2)
       moment:
         specifier: ^2.29.1
         version: 2.30.1
@@ -44,6 +50,9 @@ importers:
       next:
         specifier: 12.0.8
         version: 12.0.8(@babel/core@7.28.5)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+      p-limit:
+        specifier: ^7.2.0
+        version: 7.2.0
       react:
         specifier: 17.0.2
         version: 17.0.2
@@ -747,6 +756,10 @@ packages:
     resolution: {integrity: sha512-yS+Q5i3hBf7GBkd4KG8a7eBNNWNGLTaEwwYWUijIYM7zrlYDM0BFXHjjPWlWZ1Rg7UaddZeIDmi9jF3HmqiQ2w==}
     engines: {node: '>=6.0.0'}
 
+  dotenv@17.2.3:
+    resolution: {integrity: sha512-JVUnt+DUIzu87TABbhPmNfVdBDt18BLOWjMUFJMSi/Qqg7NTYtabbvSNJGOJ7afbRuv9D/lngizHtP7QyLQ+9w==}
+    engines: {node: '>=12'}
+
   dunder-proto@1.0.1:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
@@ -1356,6 +1369,11 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
+  lucide-react@0.555.0:
+    resolution: {integrity: sha512-D8FvHUGbxWBRQM90NZeIyhAvkFfsh3u9ekrMvJ30Z6gnpBHS6HC6ldLg7tL45hwiIz/u66eKDtdA23gwwGsAHA==}
+    peerDependencies:
+      react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+
   math-intrinsics@1.1.0:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
@@ -1702,6 +1720,10 @@ packages:
   own-keys@1.0.1:
     resolution: {integrity: sha512-qFOyK5PjiWZd+QQIh+1jhdb9LpxTF0qs7Pm8o5QHYZ0M3vKqSqzsZaEB6oWlxZ+q2sJBMI/Ktgd2N5ZwQoRHfg==}
     engines: {node: '>= 0.4'}
+
+  p-limit@7.2.0:
+    resolution: {integrity: sha512-ATHLtwoTNDloHRFFxFJdHnG6n2WUeFjaR8XQMFdKIv0xkXjrER8/iG9iu265jOM95zXHAfv9oTkqhrfbIzosrQ==}
+    engines: {node: '>=20'}
 
   parchment@1.1.4:
     resolution: {integrity: sha512-J5FBQt/pM2inLzg4hEWmzQx/8h8D0CiDxaG3vyp9rKrQRSDgBlhjdP5jQGgosEajXPSQouXGHOmVdgo7QmJuOg==}
@@ -2333,6 +2355,10 @@ packages:
 
   yallist@3.1.1:
     resolution: {integrity: sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==}
+
+  yocto-queue@1.2.2:
+    resolution: {integrity: sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ==}
+    engines: {node: '>=12.20'}
 
 snapshots:
 
@@ -3018,6 +3044,8 @@ snapshots:
     dependencies:
       esutils: 2.0.3
 
+  dotenv@17.2.3: {}
+
   dunder-proto@1.0.1:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -3145,7 +3173,7 @@ snapshots:
       eslint: 8.7.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 2.7.1(eslint-plugin-import@2.32.0(eslint@8.7.0))(eslint@8.7.0)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.7.0)(typescript@5.9.3))(eslint-import-resolver-typescript@2.7.1)(eslint@8.7.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.7.0)(typescript@5.9.3))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.32.0(eslint@8.7.0))(eslint@8.7.0))(eslint@8.7.0)
       eslint-plugin-jsx-a11y: 6.10.2(eslint@8.7.0)
       eslint-plugin-react: 7.37.5(eslint@8.7.0)
       eslint-plugin-react-hooks: 4.6.2(eslint@8.7.0)
@@ -3168,7 +3196,7 @@ snapshots:
     dependencies:
       debug: 4.4.3(supports-color@5.5.0)
       eslint: 8.7.0
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.7.0)(typescript@5.9.3))(eslint-import-resolver-typescript@2.7.1)(eslint@8.7.0)
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.7.0)(typescript@5.9.3))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.32.0(eslint@8.7.0))(eslint@8.7.0))(eslint@8.7.0)
       glob: 7.2.3
       is-glob: 4.0.3
       resolve: 1.22.11
@@ -3187,7 +3215,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.7.0)(typescript@5.9.3))(eslint-import-resolver-typescript@2.7.1)(eslint@8.7.0):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@5.62.0(eslint@8.7.0)(typescript@5.9.3))(eslint-import-resolver-typescript@2.7.1(eslint-plugin-import@2.32.0(eslint@8.7.0))(eslint@8.7.0))(eslint@8.7.0):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -3763,6 +3791,10 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
+  lucide-react@0.555.0(react@17.0.2):
+    dependencies:
+      react: 17.0.2
+
   math-intrinsics@1.1.0: {}
 
   mdast-util-definitions@5.1.2:
@@ -4121,6 +4153,10 @@ snapshots:
       get-intrinsic: 1.3.0
       object-keys: 1.1.1
       safe-push-apply: 1.0.0
+
+  p-limit@7.2.0:
+    dependencies:
+      yocto-queue: 1.2.2
 
   parchment@1.1.4: {}
 
@@ -4893,3 +4929,5 @@ snapshots:
   wrappy@1.0.2: {}
 
   yallist@3.1.1: {}
+
+  yocto-queue@1.2.2: {}

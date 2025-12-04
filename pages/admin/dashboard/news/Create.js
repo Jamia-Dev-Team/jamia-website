@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import cookies from "js-cookie";
 import shortid from "shortid";
 import dynamic from "next/dynamic";
-import { HiOutlinePhotograph, HiOutlineDocumentText } from "react-icons/hi";
+import { HiOutlinePhotograph } from "react-icons/hi";
 import { BiImageAdd } from "react-icons/bi";
 
 const Quill = dynamic(() => import("react-quill"), { ssr: false });
@@ -13,12 +13,21 @@ import AdminNav from "../../../../components/AdminNav";
 export default function CreateNews() {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
   const [img, setImg] = useState("");
   const [uploading, setUploading] = useState(false);
   const [file, setFile] = useState(null);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 
   const router = useRouter();
+
+  const categories = [
+    "Achievements",
+    "Events",
+    "Admission",
+    "Education",
+    "Scholarship"
+  ];
 
   useEffect(() => {
     const getAdmin = () => {
@@ -48,6 +57,10 @@ export default function CreateNews() {
     setTitle(e.target.value);
   };
 
+  const handleCategory = (e) => {
+    setCategory(e.target.value);
+  };
+
   const handleImg = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -75,11 +88,16 @@ export default function CreateNews() {
     if (fileInput) fileInput.value = null;
   };
 
-  const handleUpload = async (e) => {
+  const handleUpload = async (e, status = "published") => {
     e.preventDefault();
 
     if (!title.trim()) {
       alert("Please enter a title");
+      return;
+    }
+
+    if (!category) {
+      alert("Please select a category");
       return;
     }
 
@@ -105,7 +123,7 @@ export default function CreateNews() {
 
       const data = await response.json();
       if (response.ok) {
-        await addBlog(data);
+        await addBlog(data, status);
       } else {
         throw new Error(data.error || "Upload failed");
       }
@@ -115,7 +133,7 @@ export default function CreateNews() {
     }
   };
 
-  const addBlog = async (imgData) => {
+  const addBlog = async (imgData, status) => {
     const slug = shortid.generate();
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_PORT}/api/news`, {
@@ -126,10 +144,12 @@ export default function CreateNews() {
         },
         body: JSON.stringify({
           title: title,
+          category: category,
           content: description,
           slug: slug,
           image: imgData.imageUrl,
           imgId: imgData.publicId,
+          status: status,
           createdAt: new Date(),
         }),
       });
@@ -154,11 +174,10 @@ export default function CreateNews() {
           sidebarCollapsed ? 'md:ml-0' : 'md:ml-[280px]'
         }`}
       >
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-              <HiOutlineDocumentText className="text-blue-600" />
+            <h1 className="text-3xl font-bold text-gray-900">
               Create News
             </h1>
             <p className="text-gray-600 mt-2">
@@ -168,124 +187,149 @@ export default function CreateNews() {
 
           {/* Form Card */}
           <div className="bg-white rounded-lg shadow-md overflow-hidden">
-            <form onSubmit={handleUpload}>
-              {/* Image Upload Section */}
-              <div className="p-6 border-b border-gray-200">
-                <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
-                  <HiOutlinePhotograph className="text-lg" />
-                  Featured Image * (Max 500KB)
-                </label>
-                
-                <div className="grid md:grid-cols-2 gap-6 mt-4">
-                  {/* Upload Area */}
+            <form onSubmit={(e) => handleUpload(e, "published")}>
+              <div className="grid lg:grid-cols-3 gap-6 p-6">
+                {/* Left Column - Form Fields */}
+                <div className="lg:col-span-2 space-y-6">
+                  {/* Title Section */}
                   <div>
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
-                      <BiImageAdd className="text-5xl text-gray-400 mx-auto mb-3" />
-                      <label className="cursor-pointer">
-                        <span className="text-blue-600 hover:text-blue-700 font-medium">
-                          Click to upload
-                        </span>
-                        <span className="text-gray-500"> or drag and drop</span>
-                        <input
-                          onChange={handleImg}
-                          type="file"
-                          accept="image/*"
-                          className="hidden"
-                          required
-                        />
-                      </label>
-                      <p className="text-xs text-gray-500 mt-2">
-                        PNG, JPG, GIF up to 500KB
-                      </p>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      News Title *
+                    </label>
+                    <input
+                      type="text"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                      placeholder="Enter news title..."
+                      value={title}
+                      onChange={handleTitle}
+                      required
+                    />
+                  </div>
+
+                  {/* Category Section */}
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      Category *
+                    </label>
+                    <select
+                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white"
+                      value={category}
+                      onChange={handleCategory}
+                      required
+                    >
+                      <option value="">Select a category...</option>
+                      {categories.map((cat) => (
+                        <option key={cat} value={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Content Section */}
+                  <div>
+                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                      News Content *
+                    </label>
+                    <div className="bg-white rounded-lg overflow-hidden border border-gray-300">
+                      <Quill
+                        className="create-news-editor"
+                        value={description}
+                        onChange={handleDescriptionChange}
+                        modules={{
+                          toolbar: [
+                            [{ header: [1, 2, 3, false] }],
+                            ["bold", "italic", "underline", "strike"],
+                            [{ list: "ordered" }, { list: "bullet" }],
+                            [{ align: [] }],
+                            ["link", "image"],
+                            ["clean"],
+                          ],
+                        }}
+                        formats={[
+                          "header",
+                          "bold",
+                          "italic",
+                          "underline",
+                          "strike",
+                          "list",
+                          "bullet",
+                          "align",
+                          "link",
+                          "image",
+                        ]}
+                        placeholder="Write your news content here..."
+                      />
                     </div>
                   </div>
+                </div>
 
-                  {/* Preview Area */}
-                  <div>
-                    {img ? (
-                      <div className="relative border border-gray-300 rounded-lg overflow-hidden bg-gray-50">
-                        <img
-                          src={img}
-                          alt="Preview"
-                          className="w-full h-48 object-cover"
-                        />
-                        <button
-                          type="button"
-                          onClick={handleRemoveImage}
-                          className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors shadow-lg"
-                        >
-                          Remove
-                        </button>
-                        <div className="p-3 bg-white border-t border-gray-200">
-                          <p className="text-xs text-gray-600 text-center">
-                            Image Preview
-                          </p>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="border border-gray-200 rounded-lg p-6 bg-gray-50 h-full flex items-center justify-center">
-                        <p className="text-gray-400 text-center">
-                          No image selected
-                          <br />
-                          <span className="text-xs">
-                            Preview will appear here
+                {/* Right Column - Image Upload */}
+                <div className="lg:col-span-1">
+                  <div className="sticky top-6">
+                    <label className="block text-sm font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                      <HiOutlinePhotograph className="text-lg" />
+                      Featured Image * (Max 500KB)
+                    </label>
+                    
+                    {/* Upload Area */}
+                    <div className="mb-4">
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
+                        <BiImageAdd className="text-5xl text-gray-400 mx-auto mb-3" />
+                        <label className="cursor-pointer">
+                          <span className="text-blue-600 hover:text-blue-700 font-medium">
+                            Click to upload
                           </span>
+                          <span className="text-gray-500 block mt-1">or drag and drop</span>
+                          <input
+                            onChange={handleImg}
+                            type="file"
+                            accept="image/*"
+                            className="hidden"
+                            required
+                          />
+                        </label>
+                        <p className="text-xs text-gray-500 mt-2">
+                          PNG, JPG, GIF up to 500KB
                         </p>
                       </div>
-                    )}
+                    </div>
+
+                    {/* Preview Area */}
+                    <div>
+                      {img ? (
+                        <div className="relative border border-gray-300 rounded-lg overflow-hidden bg-gray-50">
+                          <img
+                            src={img}
+                            alt="Preview"
+                            className="w-full h-64 object-cover"
+                          />
+                          <button
+                            type="button"
+                            onClick={handleRemoveImage}
+                            className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-sm font-medium transition-colors shadow-lg"
+                          >
+                            Remove
+                          </button>
+                          <div className="p-3 bg-white border-t border-gray-200">
+                            <p className="text-xs text-gray-600 text-center">
+                              Image Preview
+                            </p>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="border border-gray-200 rounded-lg p-8 bg-gray-50 flex items-center justify-center min-h-[200px]">
+                          <p className="text-gray-400 text-center">
+                            No image selected
+                            <br />
+                            <span className="text-xs">
+                              Preview will appear here
+                            </span>
+                          </p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </div>
-
-              {/* Title Section */}
-              <div className="p-6 border-b border-gray-200">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  News Title *
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  placeholder="Enter news title..."
-                  value={title}
-                  onChange={handleTitle}
-                  required
-                />
-              </div>
-
-              {/* Content Section */}
-              <div className="p-6 border-b border-gray-200">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  News Content *
-                </label>
-                <div className="bg-white rounded-lg overflow-hidden border border-gray-300">
-                  <Quill
-                    className="create-news-editor"
-                    value={description}
-                    onChange={handleDescriptionChange}
-                    modules={{
-                      toolbar: [
-                        [{ header: [1, 2, 3, false] }],
-                        ["bold", "italic", "underline", "strike"],
-                        [{ list: "ordered" }, { list: "bullet" }],
-                        [{ align: [] }],
-                        ["link", "image"],
-                        ["clean"],
-                      ],
-                    }}
-                    formats={[
-                      "header",
-                      "bold",
-                      "italic",
-                      "underline",
-                      "strike",
-                      "list",
-                      "bullet",
-                      "align",
-                      "link",
-                      "image",
-                    ]}
-                    placeholder="Write your news content here..."
-                  />
                 </div>
               </div>
 
@@ -298,6 +342,36 @@ export default function CreateNews() {
                   disabled={uploading}
                 >
                   Cancel
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => handleUpload(e, "draft")}
+                  disabled={uploading}
+                  className="px-8 py-2.5 bg-gray-600 hover:bg-gray-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                >
+                  {uploading ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                          fill="none"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      Saving...
+                    </>
+                  ) : (
+                    "Save as Draft"
+                  )}
                 </button>
                 <button
                   type="submit"
@@ -335,14 +409,14 @@ export default function CreateNews() {
       </div>
 
       {/* Custom Styles for Quill Editor */}
-      <style >{`
+      <style>{`
         .create-news-editor .ql-container {
-          min-height: 300px;
+          min-height: 400px;
           font-size: 16px;
         }
         
         .create-news-editor .ql-editor {
-          min-height: 300px;
+          min-height: 400px;
         }
 
         .create-news-editor .ql-toolbar {
