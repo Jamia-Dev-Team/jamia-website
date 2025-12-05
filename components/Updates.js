@@ -68,7 +68,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 const AchievementsSection = ({ poster }) => {
-  console.log("🔥 AchievementsSection rendered, poster:", poster);
+  // console.log(" AchievementsSection rendered, poster:", poster);
 
   const responsive = {
     desktop: { breakpoint: { max: 3000, min: 1024 }, items: 4 },
@@ -77,7 +77,7 @@ const AchievementsSection = ({ poster }) => {
   };
 
   if (!poster || poster.length === 0) {
-    console.log("⚠️ poster is empty or undefined in AchievementsSection");
+    // console.log("poster is empty or undefined in AchievementsSection");
   }
 
   return (

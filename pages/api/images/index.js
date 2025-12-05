@@ -1,23 +1,56 @@
-const Images = require("../../../models/Images");
+// pages/api/images/index.js
+const { getPool } = require("../../../utils/db");
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
   const { method } = req;
+  const pool = getPool();
 
   try {
-    if (method === "GET") {
-      const imgs = await Images.find().sort({ id: -1 });
-      return res.status(200).json({ success: true, data: imgs });
-    }
+    switch (method) {
+      // GET all images
+      case "GET": {
+        const result = await pool.query(
+          "SELECT * FROM images ORDER BY id DESC"
+        );
+        return res.status(200).json({
+          success: true,
+          data: result.rows,
+        });
+      }
 
-    if (method === "POST") {
-      const created = await Images.create(req.body);
-      return res.status(200).json({ success: true, data: created });
-    }
+      // POST new image
+      case "POST": {
+        const { image, imgid } = req.body;
 
-    res.setHeader("Allow", ["GET", "POST"]);
-    return res.status(405).json({ success: false });
+        if (!image || !imgid) {
+          return res.status(400).json({
+            success: false,
+            error: "image and imgid are required",
+          });
+        }
+
+        const insertQuery =
+          "INSERT INTO images (image, imgid) VALUES ($1, $2) RETURNING *";
+        const values = [image, imgid];
+
+        const result = await pool.query(insertQuery, values);
+
+        return res.status(200).json({
+          success: true,
+          data: result.rows[0],
+        });
+      }
+
+      default: {
+        res.setHeader("Allow", ["GET", "POST"]);
+        return res.status(405).json({
+          success: false,
+          error: `Method ${method} not allowed`,
+        });
+      }
+    }
   } catch (err) {
     console.error("Images API error:", err);
     return res.status(500).json({ success: false, error: err.message });
   }
-}
+};

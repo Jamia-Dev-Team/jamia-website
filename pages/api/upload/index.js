@@ -1,9 +1,10 @@
+// api/upload/index.js
 import { IncomingForm } from 'formidable';
 import cloudinary from '../../../utils/cloudinary';
 
 export const config = {
   api: {
-    bodyParser: false, // Disabling default body parser
+    bodyParser: false,
   },
 };
 
@@ -22,10 +23,9 @@ export default async function handler(req, res) {
         resolve([fields, files]);
       });
     });
-//  console.log('files>>>>++++', files.image[0])
-//     const imageFile = await files.image;
-const imageFile = Array.isArray(files.image) ? files.image[0] : files.image;
-     if (!imageFile || !imageFile.filepath ) {
+
+    const imageFile = Array.isArray(files.image) ? files.image[0] : files.image;
+    if (!imageFile || !imageFile.filepath) {
       return res.status(400).json({ error: 'No image file provided' });
     }
 
@@ -33,10 +33,11 @@ const imageFile = Array.isArray(files.image) ? files.image[0] : files.image;
       folder: 'jmn',
     });
 
+    // 🔴 CHANGED: return image + imgid matching your DB columns
     return res.status(200).json({
       message: 'Upload successful',
-      imageUrl: result.secure_url,
-      publicId: result.public_id,
+      image: result.secure_url,  
+      imgid: result.public_id,   
     });
   } catch (error) {
     console.error('Upload error:', error);

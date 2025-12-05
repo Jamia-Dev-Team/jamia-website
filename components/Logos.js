@@ -3,7 +3,7 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 const GraduateLogosSection = () => {
-  // Sample university logos data (grouped in 4 rows)
+
   const logoRows1 = [
     // Row 1
     [
@@ -85,7 +85,7 @@ const GraduateLogosSection = () => {
                 <div
                   data-aos="fade-up"
                   data-aos-duration="1000"
-                  key={university.id}
+                  key={university}
                   className="flex flex-col items-center group"
                 >
                   <div className="w-24 h-24 md:w-28 md:h-28 bg-gray-50 rounded-full flex items-center justify-center p-4 border-2 border-gray-100 transition-all duration-300 group-hover:border-primary/30 group-hover:shadow-md">

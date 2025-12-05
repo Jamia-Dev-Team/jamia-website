@@ -149,9 +149,9 @@ export default function AdminNav() {
             <div className="p-6 flex flex-col h-full">
               {/* Logo/Header */}
               <div className="flex items-center justify-center bg-zinc-800 rounded-2xl p-6 mt-6 mb-6 flex-shrink-0">
-                <div className="relative w-40 h-40">
+                <div className="relative w-48 h-48">
                   <Image 
-                    src="/images/LOGO-3.png" 
+                    src="/images/LOGO-5.png" 
                     alt="Admin Dashboard" 
                     layout="fill"
                     objectFit="contain"
@@ -204,7 +204,7 @@ export default function AdminNav() {
             <div className="flex items-center justify-center bg-zinc-800 rounded-2xl p-6 mb-6 flex-shrink-0">
               <div className="relative w-32 h-32">
                 <Image 
-                  src="/images/LOGO-1.png" 
+                  src="/images/LOGO-5.png" 
                   alt="Admin Dashboard" 
                   layout="fill"
                   objectFit="contain"

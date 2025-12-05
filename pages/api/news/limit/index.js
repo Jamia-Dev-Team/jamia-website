@@ -15,6 +15,8 @@ function mapNewsRow(row) {
     isPublished: row.ispublished,
     createdAt: row.createdat,
     publishedAt: row.publishedat,
+    category: row.category,
+    slug: row.slug,
   };
 }
 
@@ -27,8 +29,17 @@ export default async function handler(req, res) {
       // GET → last 3 published news
       case "GET": {
         const q = `
-          SELECT _id, id, title, content, image, imgid,
-                 ispublished, createdat, publishedat
+          SELECT _id,
+                 id,
+                 title,
+                 content,
+                 image,
+                 imgid,
+                 ispublished,
+                 createdat,
+                 publishedat,
+                 category,
+                 slug
           FROM news
           WHERE ispublished = TRUE
           ORDER BY COALESCE(publishedat, createdat) DESC
@@ -51,6 +62,8 @@ export default async function handler(req, res) {
           imgId,
           isPublished,
           publishedAt,
+          category,
+          slug,
         } = req.body || {};
 
         if (!title) {
@@ -60,10 +73,40 @@ export default async function handler(req, res) {
         }
 
         const insertQ = `
-          INSERT INTO news (title, content, image, imgid, ispublished, createdat, publishedat)
-          VALUES ($1, $2, $3, $4, $5, NOW(), $6)
-          RETURNING _id, id, title, content, image, imgid,
-                    ispublished, createdat, publishedat
+          INSERT INTO news (
+            title,
+            content,
+            image,
+            imgid,
+            ispublished,
+            createdat,
+            publishedat,
+            category,
+            slug
+          )
+          VALUES (
+            $1,  -- title
+            $2,  -- content
+            $3,  -- image
+            $4,  -- imgid
+            $5,  -- ispublished
+            NOW(), -- createdat
+            $6,  -- publishedat
+            $7,  -- category
+            $8   -- slug
+          )
+          RETURNING
+            _id,
+            id,
+            title,
+            content,
+            image,
+            imgid,
+            ispublished,
+            createdat,
+            publishedat,
+            category,
+            slug
         `;
 
         const values = [
@@ -73,6 +116,8 @@ export default async function handler(req, res) {
           imgId ?? null,
           typeof isPublished === "boolean" ? isPublished : false,
           publishedAt ? new Date(publishedAt) : null,
+          category || "Events",
+          slug ?? null, // if you're always sending slug from frontend, this will be set
         ];
 
         const { rows } = await pool.query(insertQ, values);
