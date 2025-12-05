@@ -11,18 +11,18 @@ export default function rabbani() {
     {
       title: " Community Leadershi",
       description: "Practical training for mosque, social, and grassroots service roles",
-      icon: <MdAssignmentInd className="text-2xl" />
+      icon: <MdAssignmentInd className="text-2xl  text-blue-600" />
     },
     {
       title: "Applied Learning",
       description: "Leadership labs, internships, and real-world community exposure",
-      icon: <FaChalkboardTeacher className="text-2xl" />
+      icon: <FaChalkboardTeacher className="text-2xl  text-green-600" />
     },
     {
       title: "Professional Readiness",
       description: "Focus on character refinement, teamwork, and service-oriented development",
-      icon: <FaUserGraduate className="text-2xl" />
-    }
+      icon: <FaUserGraduate className="text-2xl  text-purple-600" />
+    },
   ];
 
   return (

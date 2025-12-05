@@ -8,7 +8,7 @@ module.exports = {
       colors: {
         
         // customgreen:'rgb(3, 39, 14)',
-        primary:'#3c4d42',
+        primary:'#22543d',
         secondary:'#b1882e',
         navbg:'rgb(46, 45, 45)'
          

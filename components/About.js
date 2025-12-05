@@ -32,7 +32,7 @@ const AboutSection = () => {
             <div className="space-y-4 text-gray-600 mb-8">
               <p>
                 Jamia Madeenathunnoor epitomizes excellence, blending
-                traditional Islamic studies with diverse aca- demic disciplines.
+                traditional Islamic studies with diverse academic disciplines.
               </p>
               <p>
                 Its multicultural environment fosters vibrant discourse, while

@@ -160,7 +160,7 @@ const HSSProgrammePage = () => {
                   </li>
                   <li className="flex justify-between border-b pb-2">
                     <span>Academic Year Begins:</span>
-                    <span className="font-medium">Early-git June</span>
+                    <span className="font-medium">Early-June</span>
                   </li>
                 </ul>
               </div>
