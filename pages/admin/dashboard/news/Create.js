@@ -4,7 +4,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import cookies from "js-cookie";
-import shortid from "shortid";
 import dynamic from "next/dynamic";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { BiImageAdd } from "react-icons/bi";
@@ -12,6 +11,21 @@ import { BiImageAdd } from "react-icons/bi";
 const Quill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 import AdminNav from "../../../../components/AdminNav";
+
+const makeSlug = (title) => {
+  return (
+    title
+      .toLowerCase()
+      .trim()
+      // replace any run of non letters/digits with a single dash
+      .replace(/[^0-9\p{L}]+/gu, "-")
+      // remove starting/ending dashes
+      .replace(/^-+|-+$/g, "") +
+    "-" +
+    Date.now() // keep it unique
+  );
+};
+
 
 export default function CreateNews() {
   const [description, setDescription] = useState("");
@@ -141,8 +155,9 @@ export default function CreateNews() {
    * @param imgData - { imageUrl, publicId }
    * @param publish {boolean}
    */
-  const addBlog = async (imgData, publish) => {
-    const slug = shortid.generate();
+const addBlog = async (imgData, publish) => {
+  const slug = makeSlug(title);
+
 
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_PORT}/api/news`, {

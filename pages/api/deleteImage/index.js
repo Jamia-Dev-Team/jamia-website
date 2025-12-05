@@ -1,3 +1,4 @@
+// api/deleteImage/index.js
 import cloudinary from '../../../utils/cloudinary';
 
 export default async function handler(req, res) {
@@ -14,9 +15,13 @@ export default async function handler(req, res) {
     }
 
     const result = await cloudinary.uploader.destroy(publicId);
+    console.log('Cloudinary destroy result:', result);
 
-    if (result.result !== 'ok') {
-      return res.status(400).json({ error: 'Failed to delete image' });
+    if (result.result !== 'ok' && result.result !== 'not found') {
+      return res.status(400).json({
+        error: 'Failed to delete image from Cloudinary',
+        cloudinaryResult: result,
+      });
     }
 
     return res.status(200).json({ message: 'Image deleted successfully' });

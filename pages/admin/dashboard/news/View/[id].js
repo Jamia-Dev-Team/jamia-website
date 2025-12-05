@@ -1,3 +1,6 @@
+// news/view/[id].js
+
+
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
@@ -155,7 +158,7 @@ export default function ViewNews() {
                   <img
                     src={newsData.image}
                     alt={newsData.title}
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover object-top"
                   />
                 </div>
               )}

@@ -27,7 +27,9 @@ export default function EditNews() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [originalImageId, setOriginalImageId] = useState("");
-  
+
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
   const router = useRouter();
   const { id } = router.query;
   const fileInputRef = useRef(null);
@@ -37,7 +39,7 @@ export default function EditNews() {
     "Events",
     "Admission",
     "Education",
-    "Scholarship"
+    "Scholarship",
   ];
 
   // Quill modules configuration
@@ -60,6 +62,17 @@ export default function EditNews() {
     }
   }, [router]);
 
+  // Listen for sidebar toggle events
+  useEffect(() => {
+    const handleSidebarChange = (e) => {
+      setSidebarCollapsed(e.detail.collapsed);
+    };
+
+    window.addEventListener("sidebarToggle", handleSidebarChange);
+    return () =>
+      window.removeEventListener("sidebarToggle", handleSidebarChange);
+  }, []);
+
   // Fetch news data
   useEffect(() => {
     if (id) {
@@ -71,29 +84,34 @@ export default function EditNews() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_PORT}/api/news/${id}`, {
-        headers: {
-          'Content-Type': 'application/json',
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_PORT}/api/news/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
-      });
-      
+      );
+
       if (!res.ok) {
         throw new Error(`HTTP error! status: ${res.status}`);
       }
-      
+
       const { data } = await res.json();
+
+      // Make sure keys match what API returns (after mapping)
       setFormData({
         title: data.title || "",
         content: data.content || "",
         category: data.category || "",
         image: data.image || "",
-        imgId: data.imgId || "",
-        isPublished: data.isPublished || false,
+        imgId: data.imgId || data.imgid || "",
+        isPublished: data.isPublished ?? data.ispublished ?? false,
       });
       setImagePreview(data.image || "");
-      setOriginalImageId(data.imgId || "");
+      setOriginalImageId(data.imgId || data.imgid || "");
     } catch (error) {
-      console.error('Error fetching news:', error);
+      console.error("Error fetching news:", error);
       setError(error.message);
     } finally {
       setLoading(false);
@@ -124,47 +142,60 @@ export default function EditNews() {
     }
   };
 
+  /**
+   * Upload new image (if any) via /api/upload, delete old Cloudinary image if replaced.
+   * Returns { imageUrl, publicId }
+   */
   const uploadImage = async () => {
-    if (!imageFile) return { url: formData.image, publicId: formData.imgId };
+    // No new image selected → keep existing
+    if (!imageFile) {
+      return {
+        imageUrl: formData.image,
+        publicId: formData.imgId,
+      };
+    }
 
-    const imageData = new FormData();
-    imageData.append("file", imageFile);
-    imageData.append("upload_preset", process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
-    imageData.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME);
+    const form = new FormData();
+    form.append("image", imageFile);
 
-    try {
-      const res = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        {
-          method: "POST",
-          body: imageData,
-        }
-      );
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: form,
+    });
 
-      if (!res.ok) {
-        throw new Error("Image upload failed");
-      }
+    const data = await res.json();
 
-      const data = await res.json();
-      
-      // Delete old image if exists and new image uploaded
-      if (originalImageId && originalImageId !== formData.imgId) {
+    if (!res.ok) {
+      throw new Error(data.error || "Image upload failed");
+    }
+
+    // Delete old image if there was one and it's different from new
+    if (originalImageId && originalImageId !== data.publicId) {
+      try {
         await fetch("/api/deleteImage", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ publicId: originalImageId }),
         });
+      } catch (err) {
+        console.error("Failed to delete old image:", err);
+        // Don't block main update on this
       }
-
-      return { url: data.secure_url, publicId: data.public_id };
-    } catch (error) {
-      throw new Error("Failed to upload image: " + error.message);
     }
+
+    return {
+      imageUrl: data.imageUrl,
+      publicId: data.publicId,
+    };
   };
 
+  /**
+   * Handle submit
+   * status: "published" | "draft"
+   */
   const handleSubmit = async (e, status) => {
     e.preventDefault();
-    
+
     if (!formData.title.trim()) {
       alert("Please enter a title");
       return;
@@ -181,9 +212,12 @@ export default function EditNews() {
     }
 
     setSubmitting(true);
+
     try {
       // Upload new image if selected
-      const { url: imageUrl, publicId } = await uploadImage();
+      const { imageUrl, publicId } = await uploadImage();
+
+      const isPublishing = status === "published";
 
       const updateData = {
         title: formData.title,
@@ -191,7 +225,8 @@ export default function EditNews() {
         content: formData.content,
         image: imageUrl,
         imgId: publicId,
-        isPublished: status === "published",
+        isPublished: isPublishing,
+        publishedAt: isPublishing ? new Date().toISOString() : null,
       };
 
       const res = await fetch(
@@ -206,7 +241,8 @@ export default function EditNews() {
       );
 
       if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
+        const errData = await res.json().catch(() => ({}));
+        throw new Error(errData.error || `HTTP error! status: ${res.status}`);
       }
 
       alert("News updated successfully!");
@@ -219,32 +255,19 @@ export default function EditNews() {
     }
   };
 
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-
-  useEffect(() => {
-    const handleSidebarChange = (e) => {
-      setSidebarCollapsed(e.detail.collapsed);
-    };
-    
-    window.addEventListener('sidebarToggle', handleSidebarChange);
-    return () => window.removeEventListener('sidebarToggle', handleSidebarChange);
-  }, []);
-
   return (
     <div className="min-h-screen bg-gray-50">
       <AdminNav />
-      
-      <div 
+
+      <div
         className={`transition-all duration-300 ${
-          sidebarCollapsed ? 'md:ml-0' : 'md:ml-[280px]'
+          sidebarCollapsed ? "md:ml-0" : "md:ml-[280px]"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-gray-900">
-              Edit News
-            </h1>
+            <h1 className="text-3xl font-bold text-gray-900">Edit News</h1>
             <p className="text-gray-600 mt-2">
               Update the details below to edit the news post
             </p>
@@ -262,7 +285,7 @@ export default function EditNews() {
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-6">
               <p className="text-red-800">Error: {error}</p>
-              <button 
+              <button
                 onClick={fetchNewsData}
                 className="mt-3 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
               >
@@ -274,6 +297,7 @@ export default function EditNews() {
           {/* Form Card */}
           {!loading && !error && (
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
+              {/* submit = publish */}
               <form onSubmit={(e) => handleSubmit(e, "published")}>
                 <div className="grid lg:grid-cols-3 gap-6 p-6">
                   {/* Left Column - Form Fields */}
@@ -288,7 +312,9 @@ export default function EditNews() {
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                         placeholder="Enter news title..."
                         value={formData.title}
-                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, title: e.target.value })
+                        }
                         required
                       />
                     </div>
@@ -301,7 +327,12 @@ export default function EditNews() {
                       <select
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all bg-white"
                         value={formData.category}
-                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({
+                            ...formData,
+                            category: e.target.value,
+                          })
+                        }
                         required
                       >
                         <option value="">Select a category...</option>
@@ -323,7 +354,9 @@ export default function EditNews() {
                           className="edit-news-editor"
                           theme="snow"
                           value={formData.content}
-                          onChange={(value) => setFormData({ ...formData, content: value })}
+                          onChange={(value) =>
+                            setFormData({ ...formData, content: value })
+                          }
                           modules={modules}
                           placeholder="Write your news content here..."
                         />
@@ -338,7 +371,7 @@ export default function EditNews() {
                         <HiOutlinePhotograph className="text-lg" />
                         Featured Image *
                       </label>
-                      
+
                       {/* Upload Area */}
                       <div className="mb-4">
                         <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-blue-500 transition-colors">
@@ -347,7 +380,9 @@ export default function EditNews() {
                             <span className="text-blue-600 hover:text-blue-700 font-medium">
                               Click to upload
                             </span>
-                            <span className="text-gray-500 block mt-1">or drag and drop</span>
+                            <span className="text-gray-500 block mt-1">
+                              or drag and drop
+                            </span>
                             <input
                               ref={fileInputRef}
                               onChange={handleImageChange}
@@ -418,7 +453,10 @@ export default function EditNews() {
                   >
                     {submitting ? (
                       <>
-                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                        <svg
+                          className="animate-spin h-5 w-5"
+                          viewBox="0 0 24 24"
+                        >
                           <circle
                             className="opacity-25"
                             cx="12"
@@ -447,7 +485,10 @@ export default function EditNews() {
                   >
                     {submitting ? (
                       <>
-                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                        <svg
+                          className="animate-spin h-5 w-5"
+                          viewBox="0 0 24 24"
+                        >
                           <circle
                             className="opacity-25"
                             cx="12"
@@ -482,7 +523,7 @@ export default function EditNews() {
           min-height: 400px;
           font-size: 16px;
         }
-        
+
         .edit-news-editor .ql-editor {
           min-height: 400px;
         }

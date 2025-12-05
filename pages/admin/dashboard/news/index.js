@@ -6,7 +6,14 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import cookies from "js-cookie";
 import AdminNav from "../../../../components/AdminNav";
-import { BookX, CirclePlus, FolderUp, SquarePen, Trash, View } from "lucide-react";
+import {
+  BookX,
+  CirclePlus,
+  FolderUp,
+  SquarePen,
+  Trash,
+  View,
+} from "lucide-react";
 
 // Improved formatDate function
 const formatDate = (dateString) => {
@@ -33,7 +40,10 @@ const extractPreview = (htmlContent, wordCount = 4) => {
   if (!htmlContent) return "No description";
 
   // Remove HTML tags
-  const text = htmlContent.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+  const text = htmlContent
+    .replace(/<[^>]*>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 
   // Get first N words
   const words = text.split(" ").slice(0, wordCount);
@@ -52,7 +62,6 @@ const CATEGORIES = [
 // Helper to normalize category strings
 const normalizeCategory = (value) =>
   (value || "").toString().trim().toLowerCase();
-
 
 export default function Component() {
   const [data, setData] = useState([]);
@@ -107,31 +116,30 @@ export default function Component() {
     getData();
   }, []);
 
-// Filter data based on selected filter and category
-useEffect(() => {
-  let filtered = [...data];
+  // Filter data based on selected filter and category
+  useEffect(() => {
+    let filtered = [...data];
 
-  // publication status filter
-  if (filter === "published") {
-    filtered = filtered.filter((item) => item.isPublished === true);
-  } else if (filter === "unpublished") {
-    filtered = filtered.filter(
-      (item) => item.isPublished === false || !item.isPublished
-    );
-  }
+    // publication status filter
+    if (filter === "published") {
+      filtered = filtered.filter((item) => item.ispublished === true);
+    } else if (filter === "unpublished") {
+      filtered = filtered.filter(
+        (item) => item.ispublished === false || !item.ispublished
+      );
+    }
 
-  // category filter  ✅
-  if (categoryFilter !== "all") {
-    filtered = filtered.filter(
-      (item) =>
-        normalizeCategory(item.category) ===
-        normalizeCategory(categoryFilter)
-    );
-  }
+    // category filter  ✅
+    if (categoryFilter !== "all") {
+      filtered = filtered.filter(
+        (item) =>
+          normalizeCategory(item.category) === normalizeCategory(categoryFilter)
+      );
+    }
 
-  setFilteredData(filtered);
-  setCurrentPage(1);
-}, [filter, categoryFilter, data]);
+    setFilteredData(filtered);
+    setCurrentPage(1);
+  }, [filter, categoryFilter, data]);
 
   // Calculate pagination
   const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -158,11 +166,11 @@ useEffect(() => {
     }
   };
 
-  const publishBlog = async (_id) => {
-    setLoadingStates((prev) => ({ ...prev, [`publish-${_id}`]: true }));
+  const publishBlog = async (id) => {
+    setLoadingStates((prev) => ({ ...prev, [`publish-${id}`]: true }));
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PORT}/api/news/${_id}`,
+        `${process.env.NEXT_PUBLIC_PORT}/api/news/${id}`,
         {
           method: "PUT",
           headers: {
@@ -170,7 +178,7 @@ useEffect(() => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            isPublished: true,
+            ispublished: true,
             publishedAt: new Date().toISOString(),
           }),
         }
@@ -185,15 +193,15 @@ useEffect(() => {
       console.error("Publish error:", error);
       alert("Failed to publish: " + error.message);
     } finally {
-      setLoadingStates((prev) => ({ ...prev, [`publish-${_id}`]: false }));
+      setLoadingStates((prev) => ({ ...prev, [`publish-${id}`]: false }));
     }
   };
 
-  const unPublishBlog = async (_id) => {
-    setLoadingStates((prev) => ({ ...prev, [`unpublish-${_id}`]: true }));
+  const unPublishBlog = async (id) => {
+    setLoadingStates((prev) => ({ ...prev, [`unpublish-${id}`]: true }));
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_PORT}/api/news/${_id}`,
+        `${process.env.NEXT_PUBLIC_PORT}/api/news/${id}`,
         {
           method: "PUT",
           headers: {
@@ -201,7 +209,7 @@ useEffect(() => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            isPublished: false,
+            ispublished: false,
           }),
         }
       );
@@ -215,16 +223,16 @@ useEffect(() => {
       console.error("Unpublish error:", error);
       alert("Failed to unpublish: " + error.message);
     } finally {
-      setLoadingStates((prev) => ({ ...prev, [`unpublish-${_id}`]: false }));
+      setLoadingStates((prev) => ({ ...prev, [`unpublish-${id}`]: false }));
     }
   };
 
-  const handleDelete = async (docId, publicId) => {
+  const handleDelete = async (id, publicId) => {
     if (!confirm("Are you sure you want to delete this news?")) {
       return;
     }
 
-    setLoadingStates((prev) => ({ ...prev, [`delete-${docId}`]: true }));
+    setLoadingStates((prev) => ({ ...prev, [`delete-${id}`]: true }));
     try {
       const imageResponse = await fetch("/api/deleteImage", {
         method: "POST",
@@ -240,7 +248,7 @@ useEffect(() => {
       }
 
       const newsResponse = await fetch(
-        `${process.env.NEXT_PUBLIC_PORT}/api/news/${docId}`,
+        `${process.env.NEXT_PUBLIC_PORT}/api/news/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -259,7 +267,7 @@ useEffect(() => {
       console.error("Delete error:", error);
       alert("Failed to delete: " + error.message);
     } finally {
-      setLoadingStates((prev) => ({ ...prev, [`delete-${docId}`]: false }));
+      setLoadingStates((prev) => ({ ...prev, [`delete-${id}`]: false }));
     }
   };
 
@@ -272,15 +280,15 @@ useEffect(() => {
 
     if (typeof window !== "undefined") {
       window.addEventListener("sidebarToggle", handleSidebarChange);
-      return () => window.removeEventListener("sidebarToggle", handleSidebarChange);
+      return () =>
+        window.removeEventListener("sidebarToggle", handleSidebarChange);
     }
   }, []);
-const getCategoryCount = (category) => {
-  return data.filter(
-    (item) =>
-      normalizeCategory(item.category) === normalizeCategory(category)
-  ).length;
-};
+  const getCategoryCount = (category) => {
+    return data.filter(
+      (item) => normalizeCategory(item.category) === normalizeCategory(category)
+    ).length;
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -310,28 +318,29 @@ const getCategoryCount = (category) => {
                     <span className="text-gray-400">|</span>
                     <span className="text-emerald-600">
                       <span className="font-semibold">
-                        {data.filter((d) => d.isPublished).length}
+                        {data.filter((d) => d.ispublished).length}
                       </span>{" "}
                       Published
                     </span>
                     <span className="text-gray-400">|</span>
                     <span className="text-amber-600">
                       <span className="font-semibold">
-                        {data.filter((d) => !d.isPublished).length}
+                        {data.filter((d) => !d.ispublished).length}
                       </span>{" "}
                       Unpublished
                     </span>
                   </div>
                 </div>
                 <Link href="/admin/dashboard/news/Create">
-                  <button className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 py-3 px-6 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
+                  <button
+                   className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 py-3 px-6 text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
                     <CirclePlus className="w-5 h-5" /> Add News
                   </button>
                 </Link>
               </div>
 
               {/* Publication Status Filters */}
-              <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-100">
+              <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-100 justify-center">
                 <button
                   onClick={() => setFilter("all")}
                   className={`px-6 py-2.5 rounded-lg font-medium transition-all ${
@@ -353,7 +362,7 @@ const getCategoryCount = (category) => {
                 >
                   Published{" "}
                   <span className="ml-1.5 opacity-80">
-                    ({data.filter((d) => d.isPublished).length})
+                    ({data.filter((d) => d.ispublished).length})
                   </span>
                 </button>
                 <button
@@ -366,18 +375,13 @@ const getCategoryCount = (category) => {
                 >
                   Unpublished{" "}
                   <span className="ml-1.5 opacity-80">
-                    ({data.filter((d) => !d.isPublished).length})
+                    ({data.filter((d) => !d.ispublished).length})
                   </span>
                 </button>
               </div>
 
               {/* Category Filters */}
-              <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-100">
-                <div className="w-full mb-2">
-                  <h3 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
-                    Filter by Category
-                  </h3>
-                </div>
+              <div className="flex flex-wrap gap-3 pt-4 border-t border-gray-100 justify-between">
                 <button
                   onClick={() => setCategoryFilter("all")}
                   className={`px-6 py-2.5 rounded-lg font-medium transition-all ${
@@ -436,9 +440,7 @@ const getCategoryCount = (category) => {
               <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <BookX className="w-10 h-10 text-gray-400" />
               </div>
-              <p className="text-gray-500 text-lg font-medium">
-                No news found
-              </p>
+              <p className="text-gray-500 text-lg font-medium">No news found</p>
               <p className="text-gray-400 text-sm mt-2">
                 Try adjusting your filters or add a new article
               </p>
@@ -471,7 +473,7 @@ const getCategoryCount = (category) => {
                         <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                           Status
                         </th>
-                       
+
                         <th className="px-6 py-4 text-left text-xs font-bold text-gray-700 uppercase tracking-wider">
                           Published
                         </th>
@@ -482,19 +484,22 @@ const getCategoryCount = (category) => {
                     </thead>
                     <tbody className="divide-y divide-gray-100">
                       {currentData.map((d, index) => {
+                        const id = d.id;
                         const serialNumber = startIndex + index + 1;
-                        const createdAt = formatDate(d?.createdAt);
-                        const publishedAt = formatDate(d?.publishedAt);
-                        const isPublishing =
-                          loadingStates[`publish-${d._id}`];
-                        const isUnpublishing =
-                          loadingStates[`unpublish-${d._id}`];
-                        const isDeleting =
-                          loadingStates[`delete-${d._id}`];
+                        const createdAt = formatDate(
+                          d?.createdAt || d?.createdat
+                        );
+                        const publishedAt = formatDate(
+                          d?.publishedAt || d?.publishedat
+                        );
+
+                        const isPublishing = loadingStates[`publish-${id}`];
+                        const isUnpublishing = loadingStates[`unpublish-${id}`];
+                        const isDeleting = loadingStates[`delete-${id}`];
 
                         return (
                           <tr
-                            key={d._id}
+                            key={d.id}
                             className="hover:bg-gradient-to-r hover:from-gray-50 hover:to-white transition-all duration-200"
                           >
                             <td className="px-6 py-5 text-sm font-semibold text-gray-600">
@@ -528,29 +533,29 @@ const getCategoryCount = (category) => {
                             <td className="px-6 py-5">
                               <span
                                 className={`inline-flex items-center px-3 py-1.5 rounded-full text-xs font-bold shadow-sm ${
-                                  d?.isPublished
+                                  d?.ispublished
                                     ? "bg-gradient-to-r from-emerald-100 to-emerald-50 text-emerald-700 border border-emerald-200"
                                     : "bg-gradient-to-r from-amber-100 to-amber-50 text-amber-700 border border-amber-200"
                                 }`}
                               >
                                 <span
                                   className={`w-1.5 h-1.5 rounded-full mr-2 ${
-                                    d?.isPublished
+                                    d?.ispublished
                                       ? "bg-emerald-500"
                                       : "bg-amber-500"
                                   }`}
                                 ></span>
-                                {d?.isPublished ? "Published" : "Draft"}
+                                {d?.ispublished ? "Published" : "Draft"}
                               </span>
                             </td>
                             <td className="px-6 py-5 text-sm text-gray-700 font-medium">
                               {createdAt}
                             </td>
-                 
+
                             <td className="px-6 py-5">
                               <div className="flex items-center justify-center gap-2">
                                 <Link
-                                  href={`/admin/dashboard/news/View/${d?._id}`}
+                                  href={`/admin/dashboard/news/View/${d?.id}`}
                                 >
                                   <button
                                     className="bg-gradient-to-br from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white p-2.5 rounded-lg text-xs font-medium transition-all shadow-md hover:shadow-lg relative group"
@@ -563,7 +568,7 @@ const getCategoryCount = (category) => {
                                   </button>
                                 </Link>
                                 <Link
-                                  href={`/admin/dashboard/news/Edit/${d?._id}`}
+                                  href={`/admin/dashboard/news/Edit/${d?.id}`}
                                 >
                                   <button
                                     className="bg-gradient-to-br from-indigo-500 to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white p-2.5 rounded-lg text-xs font-medium transition-all shadow-md hover:shadow-lg relative group"
@@ -575,9 +580,9 @@ const getCategoryCount = (category) => {
                                     </span>
                                   </button>
                                 </Link>
-                                {d?.isPublished ? (
+                                {d?.ispublished ? (
                                   <button
-                                    onClick={() => unPublishBlog(d?._id)}
+                                    onClick={() => unPublishBlog(d?.id)}
                                     disabled={isUnpublishing || isDeleting}
                                     className="bg-gradient-to-br from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white p-2.5 rounded-lg text-xs font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed relative group"
                                     title="Unpublish"
@@ -595,7 +600,7 @@ const getCategoryCount = (category) => {
                                   </button>
                                 ) : (
                                   <button
-                                    onClick={() => publishBlog(d?._id)}
+                                    onClick={() => publishBlog(d?.id)}
                                     disabled={isPublishing || isDeleting}
                                     className="bg-gradient-to-br from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white p-2.5 rounded-lg text-xs font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed relative group"
                                     title="Publish"
@@ -613,7 +618,7 @@ const getCategoryCount = (category) => {
                                   </button>
                                 )}
                                 <button
-                                  onClick={() => handleDelete(d?._id, d.imgId)}
+                                  onClick={() => handleDelete(d?.id, d.imgid)}
                                   disabled={
                                     isDeleting || isPublishing || isUnpublishing
                                   }
