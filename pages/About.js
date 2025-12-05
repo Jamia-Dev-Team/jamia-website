@@ -148,15 +148,8 @@ const AboutPage = () => {
               <h2 className="text-2xl font-bold text-gray-800">Our Mission</h2>
             </div>
             <p className="text-gray-600 leading-relaxed">
-              The mission of Madeenathunnoor is to provide quality education
-              that is rooted in Islamic values while ensuring an atmosphere of
-              intellectual curiosity and ethical responsibility. The institution
-              aims to empower students through comprehensive academic programs,
-              community engagement initiatives, and leadership development
-              opportunities. By promoting accessibility and inclusivity,
-              Madeenathunnoor is dedicated to shaping the future of its students
-              and their communities, ensuring that they are well-prepared to
-              face the challenges of the modern world.
+             The mission of Jamia Madeenathunnoor is to cultivate Global Islamic Leaders and Responsible Professionals by providing quality education that bridges traditional values with modern intellectual curiosity. The institution aims to empower students to become Impact-Oriented Research Scholars and dedicated Government Sector Servants through comprehensive academic programs and ethical leadership training. By promoting a culture of service and social responsibility, Jamia Madeenathunnoor is dedicated to shaping active Community Developers, ensuring they are well-prepared to lead and uplift their communities in a rapidly changing world.
+
             </p>
           </div>
         </div>

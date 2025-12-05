@@ -11,18 +11,18 @@ export default function finishing() {
     {
       title: "Advanced Scholarship",
       description: "Deep training in classical and contemporary Islamic theology",
-      icon: <FaBook className="text-2xl" />
+      icon: <FaBook className="text-2xl  text-blue-600" />
     },
     {
       title: "Research Excellence",
       description: "Structured dissertation work supported by field immersion and internships",
-      icon: <FaChalkboardTeacher className="text-2xl" />
+      icon: <FaChalkboardTeacher className="text-2xl  text-green-600" />
     },
     {
       title: "Scholarly Leadership",
       description: "Preparation for teaching, academic roles, and leadership",
-      icon: <FaUserGraduate className="text-2xl" />
-    }
+      icon: <FaUserGraduate className="text-2xl  text-purple-600" />
+    },
   ];
 
   return (

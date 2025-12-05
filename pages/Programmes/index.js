@@ -31,14 +31,14 @@ const ProgrammesPage = () => {
       title: "FINISHING SCHOOL",
       icon: <FaGraduationCap className="text-3xl text-blue-600" />,
       description: "A one-year PG Diploma in Islamic Theology offering advanced training in leadership, research, and community engagement, with coursework, internships, field immersion, and merit-based admission.",
-      link: "/Programmes/Bs"
+      link: "/Programmes/finishing"
     },
     {
       id: 4,
       title: "RABBANI FINISHING SCHOOL",
       icon: <FaUserGraduate className="text-3xl text-green-600" />,
       description: "The Rabbani Finishing School offers a one-year PG Diploma in leadership and Islamic scholarship with training and internships preparing graduates for community roles.",
-      link: "/Programmes/Bs"
+      link: "/Programmes/rabbani"
     }
   ];
 
