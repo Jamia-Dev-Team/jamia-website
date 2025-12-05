@@ -59,7 +59,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className=" bg-green-900 text-white pt-12 pb-8  items-center ">
+    <footer className="bg-primary text-white pt-12 pb-8  items-center ">
       <div className="container mx-auto px-4  ">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8  ">
           {/* University Info */}
@@ -121,7 +121,7 @@ const Footer = () => {
               <p className="flex items-start">
                 <FaMapMarkerAlt className="mt-1 mr-3 flex-shrink-0" />
                 <a 
-                href="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15642.429655451811!2d75.9051301!3d11.4360147!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xf60ace6147523af3!2sMarkaz%20Garden!5e0!3m2!1sen!2sin!4v1642778170307!5m2!1sen!2sin"
+                href="https://www.google.com/maps/place/Markaz+Garden/@11.4360147,75.9025552,17z/data=!3m1!4b1!4m6!3m5!1s0x3ba6696e9f4e15d1:0xf60ace6147523af3!8m2!3d11.4360147!4d75.9051301!16s%2Fg%2F11g0nm5pvk?hl=en-IN&entry=ttu&g_ep=EgoyMDI1MTIwMi4wIKXMDSoASAFQAw%3D%3D"
                 className="hover:text-blue-300"
                 >
                 Poonoor, Unnikulam(PO), Kozhikode, Kerala

@@ -54,7 +54,7 @@ const interstateCampuses =[
       "an": "jmis006",
       "name": "thaiba garden college of integrated studies",
       "type": "junior & bachelors",
-      "location": "dinajpur,",
+      "location": "dinajpur",
       "district": "west bengal",
       "incharge": "thanveer nurani",
       "contact": "7994153321"
@@ -64,7 +64,7 @@ const interstateCampuses =[
       "an": "jmis007",
       "name": "thaiba garden college of integrated studies",
       "type": "junior",
-      "location": "bisfi,",
+      "location": "bisfi",
       "district": "bihar",
       "incharge": "safwan nurani",
       "contact": "7902609871"
