@@ -144,17 +144,47 @@ const NewsDetailPage = () => {
     window.location.href = `mailto:?subject=${encodedSubject}&body=${encodedBody}`;
   };
 
-  const shareToWhatsApp = () => {
-    // Decode the URL to show readable Malayalam characters
+const shareToWhatsApp = () => {
+    // Helper function to decode HTML entities
+    const decodeHtmlEntities = (text) => {
+      const textarea = document.createElement('textarea');
+      textarea.innerHTML = text;
+      return textarea.value;
+    };
+    
+    const contentText = news?.content ? news.content.replace(/<[^>]*>/g, '') : '';
+    const decodedContent = decodeHtmlEntities(contentText);
+    const sentences = decodedContent.match(/[^.!?]+[.!?]+/g) || [];
+    const firstTwoSentences = sentences.slice(0, 2).join(' ').trim();
+    
     const decodedUrl = decodeURIComponent(shareUrl);
-    const text = `${shareTitle}\n${decodedUrl}`;
+    
+    const trimmedTitle = shareTitle.trim();
+    
+    const text = `*${trimmedTitle}*
+
+${firstTwoSentences}
+
+Read more:
+${decodedUrl}
+
+======================
+Follow For Madeenathunnoor Live Updates
+
+Instagram:
+https://www.instagram.com/madeenathunnoor.live/
+
+Facebook:
+https://www.facebook.com/Madeenathunnoor.Live
+
+Jamia Madeenathunnoor`;
+    
     const encodedText = encodeURIComponent(text);
     window.open(
       `https://api.whatsapp.com/send?text=${encodedText}`,
       "_blank"
     );
   };
-
   // Slider settings
   const sliderSettings = {
     dots: true,
@@ -171,18 +201,8 @@ const NewsDetailPage = () => {
     <div className="min-h-screen bg-gray-50">
       <Navbar />
 
-      <div className="pt-20">
-        {/* Breadcrumb Section */}
-        {/* <div className="bg-white border-b border-gray-200 py-4 mb-8">
-          <div className="container mx-auto px-4">
-            <Link href="/Newses">
-              <button className="inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-all duration-200 font-medium group">
-                <FaArrowLeft className="text-sm group-hover:-translate-x-1 transition-transform duration-200" />
-                <span>Back to News</span>
-              </button>
-            </Link>
-          </div>
-        </div> */}
+      <div className="pt-24">
+   
 
         {/* Main Content */}
         <div className="container mx-auto px-4 pb-16">

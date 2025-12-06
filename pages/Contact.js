@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   FaMapMarkerAlt,
   FaPhone,
@@ -11,8 +12,19 @@ import {
 } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 const ContactPage = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
   const socialLinks = [
     {
       icon: <FaFacebook className="text-xl" />,
@@ -24,14 +36,14 @@ const ContactPage = () => {
       url: "https://www.instagram.com/jamia_madeenathunnoor/",
       name: "Instagram",
     },
-    // { icon: <FaInstagram className="text-xl" />, url: "#", name: "Instagram",},
     {
       icon: <FaYoutube className="text-xl" />,
       url: "https://www.youtube.com/c/GlocalMediaMarkazGarden",
       name: "YouTube",
     },
-    { icon: <FaLinkedin className="text-xl" />, 
-      url: "https://www.linkedin.com/company/jamia-madeenathunnoor/posts/?feedView=all", 
+    {
+      icon: <FaLinkedin className="text-xl" />,
+      url: "https://www.linkedin.com/company/jamia-madeenathunnoor/posts/?feedView=all",
       name: "LinkedIn",
     },
   ];
@@ -59,11 +71,51 @@ const ContactPage = () => {
     },
   ];
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSubmitStatus(null);
+
+    try {
+     const response = await axios.post("/api/contact", formData);
+
+
+      if (response.data.success) {
+        setSubmitStatus({
+          type: "success",
+          message: "Thank you! Your message has been sent successfully.",
+        });
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        });
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: "error",
+        message: "Failed to send message. Please try again later.",
+      });
+      console.error("Error submitting form:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
       {/* Hero Section */}
-      <div className="relative  bg-gradient-to-r from-primary to-primary/80   pt-52 pb-24 ">
+      <div className="relative bg-gradient-to-r from-primary to-primary/80 pt-52 pb-24">
         <div className="absolute inset-0 flex items-center justify-center text-center px-4">
           <div className="mt-10">
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -194,7 +246,20 @@ const ContactPage = () => {
               <h2 className="text-2xl font-bold text-gray-800 mb-6">
                 Send Us a Message
               </h2>
-              <form className="space-y-4">
+
+              {submitStatus && (
+                <div
+                  className={`mb-4 p-4 rounded-lg ${
+                    submitStatus.type === "success"
+                      ? "bg-green-100 text-green-700"
+                      : "bg-red-100 text-red-700"
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
+
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor="name" className="block text-gray-700 mb-2">
                     Full Name
@@ -202,6 +267,8 @@ const ContactPage = () => {
                   <input
                     type="text"
                     id="name"
+                    value={formData.name}
+                    onChange={handleChange}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
@@ -213,6 +280,8 @@ const ContactPage = () => {
                   <input
                     type="email"
                     id="email"
+                    value={formData.email}
+                    onChange={handleChange}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
@@ -224,6 +293,8 @@ const ContactPage = () => {
                   <input
                     type="tel"
                     id="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   />
                 </div>
@@ -233,7 +304,10 @@ const ContactPage = () => {
                   </label>
                   <select
                     id="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required
                   >
                     <option value="">Select a subject</option>
                     <option value="admission">Admission Inquiry</option>
@@ -249,15 +323,18 @@ const ContactPage = () => {
                   <textarea
                     id="message"
                     rows="4"
+                    value={formData.message}
+                    onChange={handleChange}
                     className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="bg-primary hover:bg-primary/80 text-white px-6 py-3 rounded-lg font-medium w-full transition-colors"
+                  disabled={loading}
+                  className="bg-primary hover:bg-primary/80 text-white px-6 py-3 rounded-lg font-medium w-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {loading ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>

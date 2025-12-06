@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import cookies from "js-cookie";
 import { BookText, LogOut } from "lucide-react";
+import { MessageSquareText } from "lucide-react";
 
 export default function AdminNav() {
   const router = useRouter();
@@ -65,6 +66,11 @@ export default function AdminNav() {
       link: "/admin/dashboard/posters",
       icon: <BookText />,
       label: "Posters",
+    },
+     {
+      link: "/admin/dashboard/contacts",
+      icon: <MessageSquareText  />,
+      label: "Messages",
     },
   ];
 

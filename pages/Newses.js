@@ -10,15 +10,24 @@ const NewsPage = () => {
   const [newsItems, setNewsItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
   const itemsPerPage = 9;
 
   const getData = async () => {
     try {
+      setIsLoading(true);
       const res = await fetch(`${process.env.NEXT_PUBLIC_PORT}/api/news`);
       const { data } = await res.json();
-      setNewsItems(data.filter(item => item.ispublished === true));
+
+      const publishedNews = data
+        .filter(item => item.ispublished === true)
+        .sort((a, b) => new Date(b.publishedat) - new Date(a.publishedat));
+
+      setNewsItems(publishedNews);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -26,25 +35,21 @@ const NewsPage = () => {
     getData();
   }, []);
 
-  // Reset to page 1 when category changes
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedCategory]);
 
-  const categories = ["All", "Achievement", "Events", "Education","Admission", "Scholarship"];
+  const categories = ["All", "Achievements", "Events", "Education","Admission", "Scholarship"];
 
-  // Filter news items based on selected category
   const filteredNews = selectedCategory === "All" 
     ? newsItems 
     : newsItems.filter(news => news.category === selectedCategory);
 
-  // Calculate pagination
   const totalPages = Math.ceil(filteredNews.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const currentNews = filteredNews.slice(startIndex, endIndex);
 
-  // Pagination handlers
   const goToPage = (page) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -62,7 +67,6 @@ const NewsPage = () => {
     }
   };
 
-  // Generate page numbers to display
   const getPageNumbers = () => {
     const pages = [];
     const maxVisible = 5;
@@ -125,129 +129,117 @@ const NewsPage = () => {
           ))}
         </div>
 
-   
-        {/* News Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {currentNews.map((news) => (
-            <div key={news.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-              {/* News Image */}
-              <div className="relative h-56 w-full">
-                {news.image && (
-                  <Image
-                    src={news?.image}
-                    alt={news.title}
-                    layout='fill'
-                    className="object-cover object-top"
-                  />
-                )}
-                {/* Category Badge */}
-                {news.category && (
-                  <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                    {news.category}
+        {/* Loading State */}
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, index) => (
+              <div key={index} className="bg-white rounded-xl shadow-md overflow-hidden animate-pulse">
+                <div className="h-56 w-full bg-gray-300"></div>
+                <div className="p-6">
+                  <div className="h-4 bg-gray-300 rounded w-3/4 mb-3"></div>
+                  <div className="h-4 bg-gray-300 rounded w-full mb-2"></div>
+                  <div className="h-4 bg-gray-300 rounded w-5/6 mb-5"></div>
+                  <div className="h-4 bg-gray-300 rounded w-1/4"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <>
+            {/* News Grid */}
+            {currentNews.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {currentNews.map((news) => (
+                  <div key={news.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                    {/* News Image */}
+                    <div className="relative h-56 w-full">
+                      {news.image && (
+                        <Image
+                          src={news?.image}
+                          alt={news.title}
+                          layout='fill'
+                          className="object-cover object-top"
+                        />
+                      )}
+                      {/* Category Badge */}
+                      {news.category && (
+                        <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
+                          {news.category}
+                        </div>
+                      )}
+                    </div>
+                    
+                    {/* News Content */}
+                    <div className="p-6">
+                      <h3 className="text-xl font-bold text-gray-800 mb-3">{news.title}</h3>
+                      <p className="text-gray-600 mb-5">{news.excerpt}</p>
+                      <Link href={`/news/${news.slug}`}>
+                        <button className="text-primary font-medium flex items-center hover:text-secondary">
+                          Read More <FaArrowRight className="ml-2" />
+                        </button>
+                      </Link>
+                    </div>
                   </div>
-                )}
+                ))}
               </div>
-              
-              {/* News Content */}
-              <div className="p-6">
-                {/* <div className="flex items-center text-gray-500 mb-3">
-                  <FaCalendarAlt className="mr-2" />
-                  <span>{formatDate(new Date(news?.publishedat))}</span>
-                </div> */}
-                <h3 className="text-xl font-bold text-gray-800 mb-3">{news.title}</h3>
-                <p className="text-gray-600 mb-5">{news.excerpt}</p>
-                <Link href={`/news/${news.slug}`}>
-                  <button className="text-primary font-medium flex items-center hover:text-secondary">
-                    Read More <FaArrowRight className="ml-2" />
-                  </button>
-                </Link>
+            ) : (
+              /* Empty State */
+              <div className="text-center py-16">
+                <FaNewspaper className="text-6xl text-gray-300 mx-auto mb-4" />
+                <p className="text-gray-500 text-lg">No news found in this category.</p>
               </div>
-            </div>
-          ))}
-        </div>
+            )}
 
-        {/* Pagination */}
-        {totalPages > 1 && (
-          <div className="mt-12 flex justify-center items-center gap-2">
-            <button
-              onClick={goToPrevious}
-              disabled={currentPage === 1}
-              className={`p-2 rounded-lg ${
-                currentPage === 1
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-              }`}
-            >
-              <FaChevronLeft />
-            </button>
-
-            {getPageNumbers().map((page, index) => (
-              page === '...' ? (
-                <span key={`ellipsis-${index}`} className="px-3 py-2 text-gray-500">
-                  ...
-                </span>
-              ) : (
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <div className="mt-12 flex justify-center items-center gap-2">
                 <button
-                  key={page}
-                  onClick={() => goToPage(page)}
-                  className={`px-4 py-2 rounded-lg ${
-                    currentPage === page
-                      ? 'bg-primary text-white'
+                  onClick={goToPrevious}
+                  disabled={currentPage === 1}
+                  className={`p-2 rounded-lg ${
+                    currentPage === 1
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                       : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
                   }`}
                 >
-                  {page}
+                  <FaChevronLeft />
                 </button>
-              )
-            ))}
 
-            <button
-              onClick={goToNext}
-              disabled={currentPage === totalPages}
-              className={`p-2 rounded-lg ${
-                currentPage === totalPages
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
-              }`}
-            >
-              <FaChevronRight />
-            </button>
-          </div>
-        )}
+                {getPageNumbers().map((page, index) => (
+                  page === '...' ? (
+                    <span key={`ellipsis-${index}`} className="px-3 py-2 text-gray-500">
+                      ...
+                    </span>
+                  ) : (
+                    <button
+                      key={page}
+                      onClick={() => goToPage(page)}
+                      className={`px-4 py-2 rounded-lg ${
+                        currentPage === page
+                          ? 'bg-primary text-white'
+                          : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  )
+                ))}
 
-        {/* Empty State */}
-        {filteredNews.length === 0 && (
-          <div className="text-center py-16">
-            <p className="text-gray-500 text-lg">No news found in this category.</p>
-          </div>
-        )}
-
-        {/* Newsletter Subscription
-        <div className="mt-16 bg-white rounded-xl shadow-md p-8">
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/2 mb-6 md:mb-0">
-              <div className="flex items-center mb-3">
-                <FaNewspaper className="text-3xl text-primary mr-3" />
-                <h3 className="text-2xl font-bold text-gray-800">Stay Updated</h3>
-              </div>
-              <p className="text-gray-600">
-                Subscribe to our newsletter to receive the latest news and updates directly in your inbox.
-              </p>
-            </div>
-            <div className="md:w-1/2">
-              <div className="flex">
-                <input
-                  type="email"
-                  placeholder="Your email address"
-                  className="flex-grow p-3 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
-                <button className="bg-primary hover:bg-primary/80 text-white px-6 py-3 rounded-r-lg font-medium">
-                  Subscribe
+                <button
+                  onClick={goToNext}
+                  disabled={currentPage === totalPages}
+                  className={`p-2 rounded-lg ${
+                    currentPage === totalPages
+                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
+                  }`}
+                >
+                  <FaChevronRight />
                 </button>
               </div>
-            </div>
-          </div>
-        </div> */}
+            )}
+          </>
+        )}
       </div>
       <Footer/>
     </div>
