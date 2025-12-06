@@ -1,5 +1,17 @@
-// pages/api/news/index.js
 const { getPool } = require("../../../utils/db");
+
+const makeSlug = (title) => {
+  if (!title) return null;
+  return (
+    title
+      .toLowerCase()
+      .trim()
+      .replace(/[^0-9\p{L}]+/gu, "-")
+      .replace(/^-+|-+$/g, "") +
+    "-" +
+    Date.now()
+  );
+};
 
 module.exports = async (req, res) => {
   const pool = getPool();
@@ -16,12 +28,27 @@ module.exports = async (req, res) => {
           publishedAt,
           category,
           slug,
-        } = req.body;
+        } = req.body || {};
 
-        if (!title || !content || !image || !slug) {
-          return res
-            .status(400)
-            .json({ success: false, error: "Missing required fields" });
+        // Generate slug on server if not provided
+        const finalSlug =
+          slug && slug.trim()
+            ? slug
+            : makeSlug(title);
+
+        // Better error: say *which* field is missing
+        const missing = [];
+        if (!title) missing.push("title");
+        if (!content) missing.push("content");
+        if (!image) missing.push("image");
+        if (!finalSlug) missing.push("slug");
+
+        if (missing.length) {
+          console.log("NEWS POST missing fields:", { body: req.body, missing });
+          return res.status(400).json({
+            success: false,
+            error: `Missing required fields: ${missing.join(", ")}`,
+          });
         }
 
         const q = `
@@ -40,7 +67,7 @@ module.exports = async (req, res) => {
           isPublished ?? false,
           publishedAt,
           category || "Events",
-          slug,
+          finalSlug,
         ];
 
         const { rows } = await pool.query(q, values);
@@ -55,7 +82,6 @@ module.exports = async (req, res) => {
     }
 
     case "GET": {
-      // existing code that lists all news
       try {
         const q = "SELECT * FROM news ORDER BY createdat DESC";
         const { rows } = await pool.query(q);

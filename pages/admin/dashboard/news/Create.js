@@ -150,45 +150,48 @@ export default function CreateNews() {
     }
   };
 
-  /**
-   * addBlog
-   * @param imgData - { imageUrl, publicId }
-   * @param publish {boolean}
-   */
+  // /**
+  //  * addBlog
+  //  * @param imgData - { imageUrl, publicId }
+  //  * @param publish {boolean}
+  //  */
 const addBlog = async (imgData, publish) => {
   const slug = makeSlug(title);
 
+  console.log("imgData from upload:", imgData); // optional debug
 
-    try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_PORT}/api/news`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: title,
-          category: category,           // will be ignored unless you add column/support
-          content: description,
-          slug: slug,                   // same here – optional
-          image: imgData.imageUrl,
-          imgId: imgData.publicId,
-          isPublished: publish,
-          publishedAt: publish ? new Date().toISOString() : null,
-        }),
-      });
+  try {
+    const res = await fetch("/api/news", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: title,
+        content: description,
+        image: imgData.image,          
+        imgId: imgData.imgid,          
+        isPublished: publish,
+        publishedAt: publish ? new Date().toISOString() : null,
+        category: category,
+        slug: slug,
+      }),
+    });
 
-      if (res.ok) {
-        router.push("/admin/dashboard/news");
-      } else {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error || "Failed to create news post");
-      }
-    } catch (error) {
-      alert(error.message);
+    if (res.ok) {
+      router.push("/admin/dashboard/news");
+    } else {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error || "Failed to create news post");
       setUploading(false);
     }
-  };
+  } catch (error) {
+    alert(error.message);
+    setUploading(false);
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-gray-50">
